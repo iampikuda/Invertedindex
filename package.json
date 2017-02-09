@@ -1,0 +1,19 @@
+{
+  "name": "invertedindex",
+  "version": "1.0.0",
+  "description": "searching for the index of a word, rather than getting the index first",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-opikuda/Invertedindex.git"
+  },
+  "author": "damisi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-opikuda/Invertedindex/issues"
+  },
+  "homepage": "https://github.com/andela-opikuda/Invertedindex#readme"
+}
