@@ -11,14 +11,24 @@
     "url": "git+https://github.com/andela-opikuda/Invertedindex.git"
   },
   "author": "damisi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/andela-opikuda/Invertedindex/issues"
   },
   "homepage": "https://github.com/andela-opikuda/Invertedindex#readme",
   "devDependencies": {
+    "browser-sync": "^2.18.7",
     "eslint": "^3.15.0",
     "eslint-config-airbnb-base": "^11.1.0",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "browser-sync": "^2.18.7",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-config-rallycoding": "^3.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.1"
   }
 }
