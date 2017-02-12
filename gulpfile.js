@@ -6,8 +6,7 @@ gulp.task('serve', () => {
   browserSync.init({
     server: {
       baseDir: './',
-      index: 'src/views/index.html',
-      port: 4403
+      index: 'src/views/index.html'
     }
   });
 });
