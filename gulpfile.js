@@ -1,4 +1,3 @@
-
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 
@@ -7,6 +6,9 @@ gulp.task('serve', () => {
     server: {
       baseDir: './',
       index: 'src/views/index.html'
+    },
+    options: {
+      watchTask: true
     }
   });
 });
@@ -17,8 +19,9 @@ gulp.task('refresh', () => {
 
 
 // Default task
-gulp.task('runserver', ['serve', 'refresh'], () => {
+gulp.task('default', ['serve', 'refresh'], () => {
   gulp.watch('./src/**/*.html', ['refresh']);
   gulp.watch('./src/public/**/*.js', ['refresh']);
+  gulp.watch('./*.js', ['refresh']);
   gulp.watch('./src/public/css/*.css', ['refresh']);
 });

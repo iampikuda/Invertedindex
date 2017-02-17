@@ -1,19 +1,6 @@
-sudo: required
-dist: trusty
 language: node_js
 
-node_js:
-  - "stable"
-
-before_install:
-  - export CHROME_BIN=google-chrome
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
-before_script:
-  - npm install
-
-script: npm test
+node_js: "stable"
 
 # addons:
 #     code_climate:
