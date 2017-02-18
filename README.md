@@ -1,3 +1,5 @@
+[![Test Coverage](https://codeclimate.com/github/andela-opikuda/Invertedindex/badges/coverage.svg)](https://codeclimate.com/github/andela-opikuda/Invertedindex/coverage)
+
 # My Personal Inverted Index Repo
 - My work repo for checkpoint 1
 
