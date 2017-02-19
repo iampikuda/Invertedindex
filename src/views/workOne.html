@@ -1,6 +1,42 @@
 <div ng-controller="UploadFile">
-  <form name="uploadForm">
-    <input type="docName" placeholder="No JSON file uploaded" ng-model="docName"/>
-    <input type="submit" value="Upload Json"/>
+  <form name="uploadForm" ng-submit="search()">
+
+    <div class="upload-group">
+      <p>Upload a valid json file</p>
+      <div class="file-upload">
+        <file-upload></file-upload>
+      </div>
+    </div>
+
+    <div class="search-group">
+      <label for="selectBox">Choose a file(s) to search through</label>
+      <select placeholder="No JSON file uploaded" name="selectBox" required id="uploaded-files">
+        <!--<option multiple ng-show="{{uploadedFiles.length < 1}}">No JSON file uploaded</option>-->
+        <option  ng-repeat="(key, data) in uploadedFiles" value="{{ key }}" > {{ key }}</option>
+      </select>
+      <button type="submit">Search Json</button>
+    </div>
   </form>
+  {{error}}
+  <div ng-show="user">
+    <label for="sort"> Sort: </label>
+    <select ng-model="tableSortOrder" name="sort">
+      <option value="+word"> Ascending word</option>
+      <option value="-word"> Descending word</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th> Words </th>
+          <th ng-repeat="book in user"> {{book.title}} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--<tr ng-repeat=" | orderby:tableSortOrder">-->
+          <td>{{book.text}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
