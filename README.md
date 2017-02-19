@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/andela-opikuda/Invertedindex/badges/gpa.svg)](https://codeclimate.com/github/andela-opikuda/Invertedindex) [![Coverage Status](https://coveralls.io/repos/github/andela-opikuda/Invertedindex/badge.svg?branch=master)](https://coveralls.io/github/andela-opikuda/Invertedindex?branch=master) [![Build Status](https://travis-ci.org/andela-opikuda/Invertedindex.svg?branch=switch)](https://travis-ci.org/andela-opikuda/Invertedindex)
+[![Code Climate](https://codeclimate.com/github/andela-opikuda/Invertedindex/badges/gpa.svg)](https://codeclimate.com/github/andela-opikuda/Invertedindex) [![Coverage Status](https://coveralls.io/repos/github/andela-opikuda/Invertedindex/badge.svg?branch=master)](https://coveralls.io/github/andela-opikuda/Invertedindex?branch=master) [![Build Status](https://travis-ci.org/andela-opikuda/Invertedindex.svg?branch=master)](https://travis-ci.org/andela-opikuda/Invertedindex)
 
 ## What Is Inverted index?
 
@@ -30,8 +30,6 @@ To get started, you need to:
 ## Author
 
 - Oluwadamisi P. Pikuda
-
-[![Code Climate](https://codeclimate.com/github/andela-iamao/inverted-index/badges/gpa.svg)](https://codeclimate.com/github/andela-iamao/inverted-index) [![Build Status](https://travis-ci.org/andela-iamao/inverted-index.svg?branch=master)](https://travis-ci.org/andela-iamao/inverted-index) [![Coverage Status](https://coveralls.io/repos/github/andela-iamao/inverted-index/badge.svg?branch=master)](https://coveralls.io/github/andela-iamao/inverted-index?branch=master)
 
 #### License
 
