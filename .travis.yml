@@ -1,23 +1,7 @@
-sudo: required
-dist: trusty
 language: node_js
 
-node_js:
-  - "stable"
-
-before_install:
-  - export CHROME_BIN=google-chrome
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+node_js: "stable"
 
 before_script:
-  - npm install
-
-script: npm test
-
-# addons:
-#     code_climate:
-#         repo_token: ef9c3b1a2cba60e59084036067af1f9a651d2bd832ce23de2be6d61333d73928
-
-# after_success:
-#   - codeclimate-test-reporter < lcov.info
+  - npm install -g gulp
+script: gulp
