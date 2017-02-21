@@ -2,9 +2,6 @@ language: node_js
 
 node_js: "stable"
 
-# addons:
-#     code_climate:
-#         repo_token: ef9c3b1a2cba60e59084036067af1f9a651d2bd832ce23de2be6d61333d73928
-
-# after_success:
-#   - codeclimate-test-reporter < lcov.info
+before_script:
+  - npm install -g gulp
+script: gulp
