@@ -5,7 +5,7 @@
 			const textObj = {};
 
 			const onFileComplete = (response) => {
-				let upload = response.data;
+				const upload = response.data;
 				let count = 1;
 				console.log('whaaaaaaaaaaaaaaat');
 

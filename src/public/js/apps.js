@@ -1,1 +1,3 @@
-const app = angular.module("ngInverted",[]);
+const app = angular.module("ngInverted",  ['ngMaterial', 'ngMdIcons']);
+
+
