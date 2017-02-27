@@ -31,10 +31,5 @@
 
 			// $http.get("https://raw.githubusercontent.com/andela-opikuda/Invertedindex/switch/JSONbad.json")
 			// 	.then(onFileComplete, onError);
-
-
-
 		}]);
-
-
 }());
