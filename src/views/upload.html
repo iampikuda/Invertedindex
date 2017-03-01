@@ -4,15 +4,16 @@
       
       <!--HELP(HOW TO PLAY)-->
       <span class="btn"> <span class="toolTipText"> Help </span>
-        <ng-md-icon ng-click="showHelp = ! showHelp"  icon="help" style="fill: red" size="104"></ng-md-icon>
+        <ng-md-icon class="icon" ng-click="showHelp = ! showHelp"  icon="help" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
       </span>
       <!---->
 
       <!--UPLOAD BUTTON-->
       <label for="uploadBtn" class="btn">
-        <ng-md-icon icon="file_upload" style="fill: red" size="104"></ng-md-icon>
+        <ng-md-icon class="icon" icon="file_upload" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
          <span class="toolTipText"> Upload </span>
-        <input id="uploadBtn" type="file" hidden/>
+        <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)"/>
+        <!--<input id="uploadBtn" type="file" multiple hidden  accept=".json" onchange="uploadFile()"/>-->
         
       </label>
     </div>
@@ -55,10 +56,10 @@
   <ul id="bottomBar">
     <li> &copy; Copyright 2017 Inverted Index PK </li>
     <li style="float:right">
-      <ng-md-icon ng-click="showHelp = ! showHelp" icon="help" style="fill: red" size="20"></ng-md-icon>
+      <ng-md-icon ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2" size="20"></ng-md-icon>
     </li>
     <li style="float:right">
-      <ng-md-icon ng-click="showHelp=false" icon="file_upload" style="fill: red" size="20"></ng-md-icon>
+      <ng-md-icon ng-click="showHelp=false" icon="file_upload" style="fill: #1352A2" size="20"></ng-md-icon>
     </li>
   </ul>
 </div>

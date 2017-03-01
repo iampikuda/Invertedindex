@@ -1,42 +1,47 @@
-let textArray = [];
-const index = {};
+class InvertedIndex {
 
-function transformToSingles(file) {
-  for (words in file) {
-    file[words] = file[words].replace(/'\w+\s/g, " ").replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase().split(' ')
-
+  constructor() {
+    this.textArray = [];
+    this.index = {};
   };
-};
 
-function transformToArray(file) {
-  for (key in file) {
-    textArray = textArray.concat(file[key]);
-  };
-  return textArray;
-};
-
-function searchIndex(obj) {
-  for (key in obj) {
-    for (word in textArray) {
-
-      if (obj[key].includes(textArray[word])) {
-        if (index[textArray[word]] === undefined) {
-          index[textArray[word]] = [];
-          index[textArray[word]].push(key);
-        }
-        else if (index[textArray[word]].includes(key)) {
-          continue;
-        }
-        else {
-          console.log("here");
-          index[textArray[word]].push(key);
-        };
-      } else {
-        console.log("nope");
-        continue;
-      }
+  transformToSingles(file) {
+    for (let words in file) {
+      file[words] = file[words].replace(/'\w+\s/g, " ").replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase().split(' ')
+      
     };
   };
-  console.log(index);
-  console.log(JSON.stringify(index));
-};
+
+  transformToArray(file) {
+    for (let key in file) {
+      this.textArray = this.textArray.concat(file[key]);
+    };
+    return this.textArray;
+  };
+
+  searchIndex(obj) {
+    for (let key in obj) {
+      for (let word in this.textArray) {
+
+        if (obj[key].includes(this.textArray[word])) {
+          if (this.index[this.textArray[word]] === undefined) {
+            this.index[this.textArray[word]] = [];
+            this.index[this.textArray[word]].push(key);
+          }
+          else if (this.index[this.textArray[word]].includes(key)) {
+            continue;
+          }
+          else {
+            console.log("here");
+            this.index[this.textArray[word]].push(key);
+          };
+        } else {
+          console.log("nope");
+          continue;
+        }
+      };
+    };
+    console.log(this.index);
+    console.log(JSON.stringify(this.index));
+  };
+}

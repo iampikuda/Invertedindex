@@ -1,40 +1,67 @@
 (function () {
-	angular.module('ngInverted')
-		.controller('UploadFile', ['$scope', '$http', ($scope, $http) => {
-			const titleObj = {};
-			const textObj = {};
+  angular.module('ngInverted')
+    .controller('UploadFile', ['$scope', '$http', ($scope, $http) => {
+      const titleObj = {};
+      const textObj = {};
+      $scope.fileName = '';
 
-			const onFileComplete = (response) => {
-				const upload = response.data;
-				let count = 1;
-				console.log('whaaaaaaaaaaaaaaat');
+      const inverted_index = new InvertedIndex();
 
-				for (batter in upload) {
-					titleObj[count] = upload[batter].title
-					textObj[count] = upload[batter].text
-					count++
-				};
+      $scope.collectFiles = (event) => {
+        const files = event.target.files;
 
-				$scope.pasta = titleObj;
-				transformToSingles(textObj);
-				transformToArray(textObj);
-				searchIndex(textObj);
+        for (file of files) {
+          ((file) => {
+          $scope.fileName = file.name;
+            console.log($scope.fileName);
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              onFileComplete(JSON.parse(event.target.result));
+              console.log($scope.fileName);
+              if ($scope.documentWhole) {
+                $scope.documentWhole[$scope.fileName] = inverted_index.index;
+                console.log(JSON.stringify($scope.documentWhole));
+              }
+              else {
+                $scope.documentWhole = {};
+                $scope.documentWhole[$scope.fileName] = inverted_index.index;
+                console.log(JSON.stringify($scope.documentWhole));
+              };
+            };
+            reader.readAsText(file);
+          })(file);
+        }
+      }
 
 
-			};
+      const onFileComplete = (response) => {
 
-			const onError = (reason) => {
-				$scope.error = "Not valid json";
-			};
-			$http.get('https://raw.githubusercontent.com/andela-opikuda/Invertedindex/switch/JSON.json')
-				.then(onFileComplete, onError);
-
-			// $http.get("https://raw.githubusercontent.com/andela-opikuda/Invertedindex/switch/JSONbad.json")
-			// 	.then(onFileComplete, onError);
+        console.log($scope.fileName);
 
 
+        let count = 1;
+        console.log('whaaaaaaaaaaaaaaat');
 
-		}]);
+        for (let batter in response) {
+          titleObj[count] = response[batter].title
+          textObj[count] = response[batter].text
+          count++
+        };
+
+
+
+        inverted_index.transformToSingles(textObj);
+        inverted_index.transformToArray(textObj);
+        inverted_index.searchIndex(textObj);
+
+
+
+
+
+
+      };
+
+    }]);
 
 
 }());
