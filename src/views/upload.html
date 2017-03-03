@@ -1,10 +1,10 @@
 <div ng-hide="upload" ng-controller="UploadFile">
-  <div id="banner" ng-hide="showHelp">
+  <div id="banner" ng-hide="!document">
     <div id="mainUpload">
-      
+
       <!--HELP(HOW TO PLAY)-->
       <span class="btn"> <span class="toolTipText"> Help </span>
-        <ng-md-icon class="icon" ng-click="showHelp = ! showHelp"  icon="help" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
+      <ng-md-icon class="icon" ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
       </span>
       <!---->
 
@@ -12,13 +12,66 @@
       <label for="uploadBtn" class="btn">
         <ng-md-icon class="icon" icon="file_upload" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
          <span class="toolTipText"> Upload </span>
-        <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)"/>
-        <!--<input id="uploadBtn" type="file" multiple hidden  accept=".json" onchange="uploadFile()"/>-->
-        
+        <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)" />       
       </label>
+      <!---->
+
+      <!--create index btn-->
+      <div class="btn">
+        <div id="errors"> </div>
+        <label for="sort"> Book: </label>
+
+        <select id="selectIndex" ng-model="bookList" name="sort">
+          <option ng-repeat="(key, value) in documentWhole">{{key}}</option>
+        </select>
+
+        <button onclick="angular.element(this).scope().showIndex()">Create Index</button>
+
+      </div>
+      <!---->
     </div>
   </div>
   <!---->
+
+  <!--Table-->
+  <div id="table">
+
+    <label for="sort"> Sort: </label>
+    <select ng-model="tableSortOrder" name="sort">
+      <option value="+word"> Ascending word</option>
+      <option value="-word"> Descending word</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th> Words </th>
+          <th ng-repeat="key in title"> {{key}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr ng-repeat="(key, value) in text">
+          <td>{{key}}</td>
+
+          <td ng-repeat="x in fileRange">
+            <!--<span> {{x}}</span>-->
+            <span ng-if="value.includes(x)">
+              <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
+            </span>
+            <span ng-if="!value.includes(x)">
+              <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
+            </span>
+          </td>
+       
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  <!---->
+
 
   <!--HOW TO USE-->
   <div ng-show="showHelp" id="help">
@@ -51,15 +104,15 @@
     </div>
   </div>
   <!---->
-  
+
+
   <!--BOTTOM BAR-->
+
   <ul id="bottomBar">
     <li> &copy; Copyright 2017 Inverted Index PK </li>
     <li style="float:right">
       <ng-md-icon ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2" size="20"></ng-md-icon>
     </li>
-    <li style="float:right">
-      <ng-md-icon ng-click="showHelp=false" icon="file_upload" style="fill: #1352A2" size="20"></ng-md-icon>
-    </li>
+
   </ul>
 </div>

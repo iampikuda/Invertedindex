@@ -14,9 +14,9 @@ body {
 
 #banner {
     background-color: whitesmoke;
-    width: 60%;
+    width: 80%;
     position: fixed;
-    top: 40%;
+    top: 80%;
     left: -1%;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
@@ -24,6 +24,39 @@ body {
     -webkit-box-shadow:   0px 12px 6px -5px black;
     box-shadow:           0px 12px 6px -5px black;
 
+}
+
+table { 
+    /*width: 100%; */
+    border-collapse: collapse;
+    max-height: 530px;
+    
+    overflow-y: scroll;
+    
+    display: block;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold;
+  width: 10% 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+td {
+  font-size: 20px;
+}
+
+tr td:not(:first-child) { 
+    text-align: center;
 }
 
 #mainUpload {
@@ -34,9 +67,10 @@ body {
     transform: translate(-50%, -70%);*/
     /*cursor: pointer;*/
 }
+
 #table {
     background-color: whitesmoke;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -49,7 +83,7 @@ body {
     padding: 15px;
     padding-top: 5px;
     min-width: 700px;
-    max-height: 530px;
+    max-height: 550px;
 }
 
 #help {
@@ -122,8 +156,10 @@ body {
 }
 
 .btn {
-    margin: 0px;
+    padding-right: 10px;
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .btn .toolTipText {
