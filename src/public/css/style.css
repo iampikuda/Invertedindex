@@ -10,32 +10,82 @@ body {
     -o-filter: blur(5px);
     -ms-filter: blur(5px);
     filter: blur(5px);*/
+    overflow-x: scroll;
+    min-width: 700px;
+}
+
+body * {
+    /*border: 2px solid black;*/
 }
 
 #banner {
-    background-color: whitesmoke;
-    width: 80%;
+    background-color: ghostwhite;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 40%;
     position: fixed;
-    top: 80%;
-    left: -1%;
-    border-bottom-right-radius: 25px;
-    border-top-right-radius: 25px;
+    top: 40%;
+    left: 30%;
+    border-radius: 25px;
     -moz-box-shadow:      0px 12px 6px -5px black;
     -webkit-box-shadow:   0px 12px 6px -5px black;
     box-shadow:           0px 12px 6px -5px black;
+}
 
+#mainUpload {
+    position: relative;
+    display: inline-block;
+    border: 2px solid crimson;
+    justify-content: center;
+    align-items: center;
+    /*top: 50%;*/
+    /*left: 20%;*/
+}
+
+#banner .btn {
+    border: 1px dashed blue;
+    /*align-items: center;*/
+    position: relative;
+    /*display: inline-block;*/
+    /*top: 50%;*/
+    /*left: 20%;*/
+    /*margin-right: -50%;*/
+    /*transform: translate(-50%, -50%)*/
+}
+
+#uploadBtnTable {
+    background: #077AFF; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#66B0FA, #077AFF); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#66B0FA, #077AFF); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#66B0FA, #077AFF); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#66B0FA, #077AFF);
+    border: none;
+    border-radius: 5px;
+    -moz-box-shadow:      0px 6px 10px -5px black;
+    -webkit-box-shadow:   0px 6px 10px -5px black;
+    box-shadow:           0px 6px 10px -5px black;
+
+    color: ghostwhite;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /*font-size: 16px;*/
+    margin: 0px 7px;
+    cursor: pointer;
 }
 
 table { 
     /*width: 100%; */
     border-collapse: collapse;
-    max-height: 530px;
-    
+    max-height: 100%;
     overflow-y: scroll;
-    
+    /*overflow: hidden;*/
     display: block;
+    position: relative;
 }
-/* Zebra striping */
+
+
 tr:nth-of-type(odd) { 
   background: #eee; 
 }
@@ -59,13 +109,10 @@ tr td:not(:first-child) {
     text-align: center;
 }
 
-#mainUpload {
-    /*background-color: rgba(255, 255, 255, 0.7);*/
-    /*position: relative;*/
-    float: right;
-    /*margin-right: -50%;
-    transform: translate(-50%, -70%);*/
-    /*cursor: pointer;*/
+#tableInner {
+    height: 80%;
+    /*border: 2px solid red;*/
+    position: relative;
 }
 
 #table {
@@ -74,7 +121,7 @@ tr td:not(:first-child) {
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -48%);
+    transform: translate(-50%, -49%);
     width: 80%;
     border-radius: 13px;
     -moz-box-shadow:     0 0 20px #000000;
@@ -82,8 +129,30 @@ tr td:not(:first-child) {
     box-shadow:          0 0 20px #000000; 
     padding: 15px;
     padding-top: 5px;
-    min-width: 700px;
-    max-height: 550px;
+    min-width: 80%;
+    height: 80%;
+}
+
+#table ul {
+    list-style: none;
+    
+}
+
+#table li {
+    padding-bottom:  5px;
+    display: inline-block;
+    overflow: auto;
+    text-align: center;
+}
+
+#table h3 {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    left: -50%
+    
+    /*display: table-row;*/
+    /*margin: 0px;*/
 }
 
 #help {
@@ -100,7 +169,7 @@ tr td:not(:first-child) {
     box-shadow:          0 0 20px #000000; 
     padding: 15px;
     padding-top: 5px;
-    min-width: 700px;
+    min-width: 730px;
 }
 
 #topBar {
@@ -129,9 +198,9 @@ tr td:not(:first-child) {
     text-decoration: none;
 }
 
-#topBar li:hover {
+/*#topBar li:hover {
     -webkit-text-fill-color: navy;
-}
+}*/
 
 #bottomBar {
     list-style-type: none;
@@ -148,11 +217,29 @@ tr td:not(:first-child) {
 #bottomBar li {
     font-family: 'Orbitron', sans-serif;
     float: left;
-    display: block;
+    /*display: block;*/
     color: black;
     text-align: center;
     padding: 18px 16px;
     text-decoration: none;
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+    align-items: center;
+    position: relative;
+    /*display: flex;*/
+    align-items: center
+}
+
+#bottomBar li span {
+    display: inline-block;
+    top: 50%;
+    transform: translate(0, -60%); 
+}
+
+#smallHelpBtn {
+    display: inline-block;
+    top: 50%;
+    transform: translate(0, 17%);
 }
 
 .btn {
@@ -178,6 +265,7 @@ tr td:not(:first-child) {
     z-index: 5;
     top: 18px;
     left: 28%; 
+    transform: translate(0, -110%);
     -moz-box-shadow:      0 0 10px #000000;
     -webkit-box-shadow:   0 0 10px #000000;
     box-shadow:           0 0 10px #000000; 
@@ -189,4 +277,17 @@ tr td:not(:first-child) {
 
 #head a{
     color: black;
+}
+
+#searchError {
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 0px;
+    position: relative;
+    z-index: 5;
+    top: -65%;
+    left: 75%;
+    visibility: hidden;
+    background-color: white;
 }
