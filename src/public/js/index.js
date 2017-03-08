@@ -42,8 +42,12 @@ class InvertedIndex {
         }
       };
     };
-    // console.log(this.index);
-    // console.log(JSON.stringify(this.index));
+    console.log(this.index);
+    console.log(this.textArray);
+  };
+
+  searchIndex(file) {
+
   };
 
 }
