@@ -1,15 +1,7 @@
 <div ng-hide="upload" ng-controller="UploadFile">
-  <ul id="topBar">
-		<li id="head"> <a style="text-decoration:none; text-color: black" href="/">Inverted Index</a> </li>
-    <!--<li style="float:right">
-      <label for="uploadBtn" class="btn" style="float: left">
-        <span>Upload another file here</span>
-        <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)" />       
-      </label>
-    </li>-->
-	</ul>
-  <div id="banner" ng-hide="showHelp || document">
+  <div id="banner" ng-hide="!document">
     <div id="mainUpload">
+
       <!--HELP(HOW TO PLAY)-->
       <span class="btn"> <span class="toolTipText"> Help </span>
       <ng-md-icon class="icon" ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
@@ -24,14 +16,15 @@
       </label>
       <!---->
 
-      <!--CREATE INDEX BTN-->
+      <!--create index btn-->
       <div class="btn">
-        <div id="createError"> </div>
-
+        <div id="errors"> </div>
         <label for="sort"> Book: </label>
-        <select id="createIndex" ng-model="bookListCreate" name="sort">
+
+        <select id="selectIndex" ng-model="bookList" name="sort">
           <option ng-repeat="(key, value) in documentWhole">{{key}}</option>
         </select>
+
         <button onclick="angular.element(this).scope().showIndex()">Create Index</button>
 
       </div>
@@ -41,139 +34,41 @@
   <!---->
 
   <!--Table-->
-  <div id="table" ng-show="!showHelp && document">
-    <div id="tableInner">
-      <!--<label for="sort"> Sort Table: </label>
-      <select ng-model="tableSortOrder" name="sort">
-        <option value="+word"> Ascending word</option>
-        <option value="-word"> Descending word</option>
-      </select>-->
-      <ul>
-        <li>
-          <label for="uploadBtn" id="uploadBtnTable" class="btn" >
-              <span> Upload</span>
-              <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)" />       
-          </label>
+  <div id="table">
 
-          <label for="sort"> Book: </label>
-          <select id="createIndex" ng-model="bookListCreate" name="sort">
-            <option ng-repeat="(key, value) in documentWhole">{{key}}</option>
-          </select>
-          <button onclick="angular.element(this).scope().showIndex()">Create Index</button>
-        </li>
+    <label for="sort"> Sort: </label>
+    <select ng-model="tableSortOrder" name="sort">
+      <option value="+word"> Ascending word</option>
+      <option value="-word"> Descending word</option>
+    </select>
 
-        <li>
-          <label> Search through: </label>
-          <select id="searchIndex" ng-model="bookListSearch" name="sort">
-            <option>All</option>
-            <option ng-repeat="(key, value) in documentWhole">{{key}}</option>
-          </select>
-          <label> For: </label>
-          <input list="word" name="wordlist" id="wordInput">
-          <datalist id="word">
-            <option ng-repeat="word in wordSet" value="{{word}}">
-          </datalist>
-          <button onclick="angular.element(this).scope().searchIndex()">Search Index</button>
-        </li>
-      <div id="searchError" > </div>
-      <li>
-          <h3>{{header}}</h3>
-      </li> 
-      </ul>
-  <!---->
+    <table>
+      <thead>
+        <tr>
+          <th> Words </th>
+          <th ng-repeat="key in title"> {{key}}</th>
+        </tr>
+      </thead>
 
-  <!--CREATE TABLE CONTENT-->      
-      <table ng-show="create">
-        <thead>
-          <tr>
-            <th> Words </th>
-            <th ng-repeat="key in title"> {{key}}</th>
-          </tr>
-        </thead>
+      <tbody>
 
-        <tbody>
+        <tr ng-repeat="(key, value) in text">
+          <td>{{key}}</td>
 
-          <tr ng-repeat="(key, value) in text">
-            <!--WORD-->
-            <td>{{key}}</td>
-            <!---->
-
-            <!--ICON BLOCK-->
-            <td ng-repeat="x in fileRange">
-              <span ng-if="value.includes(x)">
-                <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
-              </span>
-              <span ng-if="!value.includes(x)">
-                <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
-              </span>
-            </td>
-            <!---->
-          </tr>
-          
-        </tbody>
-      </table>
-
-  <!--SEARCH TABLE CONTENT-->
-      <table ng-show="search">
-        <thead>
-          <tr>
-            <th> Words </th>
-            <th ng-repeat="key in searchTitle"> {{key}}</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr ng-repeat="(key, value) in searchText">
-            <!--WORD-->
-            <td>{{key}}</td>
-            <!---->
-
-            <!--ICON BLOCK-->
-            <td ng-repeat="x in fileRange">
-              <span ng-if="value.includes(x)">
-                <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
-              </span>
-              <span ng-if="!value.includes(x)">
-                <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
-              </span>
-            </td>
-            <!---->
-          </tr>
-          
-        </tbody>
-      </table>
-      <!--SEARCH TABLE CONTENT-->
-      <table ng-show="all">
-        <thead>
-          <tr>
-            <th> Words </th>
-            <th ng-repeat="key in searchTitle"> {{key}}</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr ng-repeat="(key, value) in searchText">
-            <!--WORD-->
-            <td>{{key}}</td>
-            <!---->
-
-            <!--ICON BLOCK-->
-            <td ng-repeat="x in fileRange">
-              <span ng-if="value.includes(x)">
-                <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
-              </span>
-              <span ng-if="!value.includes(x)">
-                <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
-              </span>
-            </td>
-            <!---->
-          </tr>
-          
-        </tbody>
-      </table>
-    </div>
+          <td ng-repeat="x in fileRange">
+            <!--<span> {{x}}</span>-->
+            <span ng-if="value.includes(x)">
+              <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
+            </span>
+            <span ng-if="!value.includes(x)">
+              <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
+            </span>
+          </td>
+       
+        </tr>
+        
+      </tbody>
+    </table>
   </div>
   <!---->
 
@@ -181,8 +76,7 @@
   <!--HOW TO USE-->
   <div ng-show="showHelp" id="help">
     <div>
-      <h1>Inverted Index <ng-md-icon icon="cancel" style="fill: black; float: right; cursor: pointer" size="20" ng-click="showHelp = ! showHelp"></ng-md-icon></h1>
-
+      <h1>Inverted Index</h1>
       <p>
         Inverted Indexed Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text
         searches. An inverted index consists of a list of all the unique words that appear in any document, and for each
@@ -216,14 +110,8 @@
 
   <ul id="bottomBar">
     <li> &copy; Copyright 2017 Inverted Index PK </li>
-    
-    <!--<li>
-      <span>Upload another file here</span>
-      <ng-md-icon ng-click="showHelp = ! showHelp" icon="chevron_right" style="fill: red" size="20"></ng-md-icon>
+    <li style="float:right">
       <ng-md-icon ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2" size="20"></ng-md-icon>
-    </li>-->
-    <li style="float: right"> 
-      <ng-md-icon id="smallHelpBtn" ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2; cursor:pointer" size="20"></ng-md-icon>
     </li>
 
   </ul>
