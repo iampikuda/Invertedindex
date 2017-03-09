@@ -36,7 +36,7 @@
 
       </div>
       <!---->
-  </div>
+    </div>
   </div>
   <!---->
 
@@ -50,10 +50,10 @@
       </select>-->
       <ul>
         <li>
-          <button for="uploadBtn" id="uploadBtnTable" class="btn" >
-              <span>Upload another file here</span>
+          <label for="uploadBtn" id="uploadBtnTable" class="btn" >
+              <span> Upload</span>
               <input id="uploadBtn" type="file"  hidden  accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)" />       
-          </button>
+          </label>
 
           <label for="sort"> Book: </label>
           <select id="createIndex" ng-model="bookListCreate" name="sort">
@@ -76,14 +76,13 @@
           <button onclick="angular.element(this).scope().searchIndex()">Search Index</button>
         </li>
       <div id="searchError" > </div>
-
+      <li>
+          <h3>{{header}}</h3>
+      </li> 
+      </ul>
   <!---->
 
-  <!--CREATE TABLE CONTENT-->
-        <li>
-          <h3>{{header}}</h3>
-        </li>  
-      </ul>
+  <!--CREATE TABLE CONTENT-->      
       <table ng-show="create">
         <thead>
           <tr>
@@ -116,6 +115,36 @@
 
   <!--SEARCH TABLE CONTENT-->
       <table ng-show="search">
+        <thead>
+          <tr>
+            <th> Words </th>
+            <th ng-repeat="key in searchTitle"> {{key}}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr ng-repeat="(key, value) in searchText">
+            <!--WORD-->
+            <td>{{key}}</td>
+            <!---->
+
+            <!--ICON BLOCK-->
+            <td ng-repeat="x in fileRange">
+              <span ng-if="value.includes(x)">
+                <ng-md-icon icon="check" style="fill: green" size="25"></ng-md-icon>
+              </span>
+              <span ng-if="!value.includes(x)">
+                <ng-md-icon icon="cancel" style="fill: red" size="25"></ng-md-icon>
+              </span>
+            </td>
+            <!---->
+          </tr>
+          
+        </tbody>
+      </table>
+      <!--SEARCH TABLE CONTENT-->
+      <table ng-show="all">
         <thead>
           <tr>
             <th> Words </th>
