@@ -11,6 +11,8 @@
       $scope.fileRange = [];
       $scope.wordSet;
       $scope.text = {};
+      let temp = {};
+      let tempo;
 
 
       const inverted_index = new InvertedIndex();
@@ -163,6 +165,7 @@
             $timeout(hideSearchError, 4000);
           }else{
             let searchText = {};
+            $scope.searchAll = {};
             let docsNow = $scope.documentWhole;
             $scope.create = false;
             $scope.search = true;
@@ -172,23 +175,53 @@
             $scope.searchTitle = $scope.documentWholeTitle[indexedFile];
             $scope.searchText = {};
             words = words.split(/[\s,]+/);
-            // console.log(words);
-            const search = (letters) => {
-              for (let i in letters) {
-                console.log($scope.documentWhole);
-                console.log($scope.documentWholeTitle);
-                console.log(letters[i]);
-                console.log(indexedFile);
-                let word = letters[i]
-                console.log(($scope.documentWhole[indexedFile][word]));
-                $scope.searchText[word] = $scope.documentWhole[indexedFile][word];
+            tempo = [];
+            if (indexedFile === "All") {
+              for (let key in docsNow){
+                temp = {};
+                for (let i in words) {
+                  let word = words[i]
+                  temp[word]= docsNow[key][word];
+                  
+                  // $scope.searchAll.push(tempo);
+                };
+                tempo.push(temp);
+                console.log(tempo);
+                $scope.searchAll[key] = tempo;
+                
               };
+            } else {
+              for (let i in words) {
+                let word = words[i]
+              };
+              $scope.searchText[word] = docsNow[indexedFile][word];
             };
-             if(indexedFile === "All") {
+            
+
+
+            
+            // console.log(temp);
+            console.log(tempo);
+            console.log($scope.searchAll);
+
+
+            // console.log(words);
+            // const search = (letters) => {
+            //   for (let i in letters) {
+            //     console.log($scope.documentWhole);
+            //     console.log($scope.documentWholeTitle);
+            //     console.log(letters[i]);
+            //     console.log(indexedFile);
+            //     let word = letters[i]
+            //     console.log(($scope.documentWhole[indexedFile][word]));
+            //     $scope.searchText[word] = $scope.documentWhole[indexedFile][word];
+            //   };
+            // };
+            //  if(indexedFile === "All") {
                
-              } else {
-                search(words)
-              }
+            //   } else {
+            //     search(words)
+            //   }
             $scope.$apply();
           }
         };
