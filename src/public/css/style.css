@@ -18,6 +18,14 @@ body * {
     /*border: 2px solid black;*/
 }
 
+caption {
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 3px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+}
+
 #banner {
     background-color: ghostwhite;
     justify-content: center;
@@ -36,15 +44,19 @@ body * {
 #mainUpload {
     position: relative;
     display: inline-block;
-    border: 2px solid crimson;
+    /*border: 2px solid crimson;*/
     justify-content: center;
     align-items: center;
     /*top: 50%;*/
     /*left: 20%;*/
 }
 
+{
+
+}
+
 #banner .btn {
-    border: 1px dashed blue;
+    /*border: 1px dashed blue;*/
     /*align-items: center;*/
     position: relative;
     /*display: inline-block;*/
@@ -78,7 +90,7 @@ body * {
 table { 
     /*width: 100%; */
     border-collapse: collapse;
-    max-height: 100%;
+    max-height: 110%;
     overflow-y: scroll;
     /*overflow: hidden;*/
     display: block;
@@ -116,11 +128,12 @@ tr td:not(:first-child) {
 }
 
 label span {
-    font-family: 'Black Ops One', cursive;
+    font-family: 'Orbitron', sans-serif;
 }
 
 #table {
     background-color: whitesmoke;
+    border: 2px solid saddlebrown;
     position: absolute;
     top: 49%;
     left: 50%;
@@ -142,6 +155,11 @@ label span {
     list-style: none;
     
 }
+#mainUpload ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
 
 #table li {
     padding-bottom:  5px;
@@ -150,14 +168,11 @@ label span {
     text-align: center;
 }
 
-#table h3 {
-    text-align: center;
+h3 {
     padding: 0px;
     margin: 0px;
-    left: -50%
-    
-    /*display: table-row;*/
-    /*margin: 0px;*/
+    left: -50%;    
+    display: block;
 }
 
 #help {
@@ -266,14 +281,15 @@ label span {
 
     /* Position the tooltip */
     position: absolute;
-    /*display: inline-flex;*/
+    display: inline-flex;
     z-index: 5;
     top: 18px;
     left: 28%; 
-    transform: translate(0, -110%);
+    transform: translate(-50%, -50%);
     -moz-box-shadow:      0 0 10px #000000;
     -webkit-box-shadow:   0 0 10px #000000;
     box-shadow:           0 0 10px #000000; 
+    font-family: 'Orbitron', sans-serif;
 }
 
 .btn:hover .toolTipText {
@@ -286,13 +302,19 @@ label span {
 
 #searchError {
     text-align: center;
-    border-radius: 3px;
+    border-radius: 30px;
     padding: 5px;
     margin: 0px;
-    position: relative;
+    position: absolute;
     z-index: 5;
-    top: -65%;
-    left: 75%;
+    top: 3%;
+    left: 50%;
     visibility: hidden;
     background-color: white;
+    font-family: 'VT323', monospace, serif;
+}
+
+#createError {
+    font-family: 'VT323', monospace, serif;
+    visibility: hidden;
 }

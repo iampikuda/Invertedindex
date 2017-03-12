@@ -6,7 +6,7 @@ const path = require('path');
 gulp.task('serve', () => {
   browserSync.init({
     server: {
-      baseDir: './src',
+      baseDir: './',
       index: 'src/views/index.html'
     },
     options: {

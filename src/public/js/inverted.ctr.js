@@ -4,7 +4,7 @@
       $scope.titleObj = {};
       $scope.textObj = {};
       $scope.fileName = '';
-      $scope.documentWhole = {};
+      $scope.documentWholeText = {};
       $scope.documentWholeTitle = {};
       $scope.document = false;
       $scope.indexedFile = '';
@@ -13,12 +13,23 @@
       $scope.text = {};
       let temp = {};
       let tempo;
+      $scope.documentRange = {};
 
 
-      const inverted_index = new InvertedIndex();
+      const invertedIndex = new InvertedIndex();
+
+      const hideSearchError = () => {
+        document.getElementById("searchError").style.visibility = "hidden";
+        document.getElementById("searchError").innerHTML = "";
+      };
+
+      const hideCreateError = () => {
+        document.getElementById("createError").style.visibility = "hidden";
+        document.getElementById("createError").innerHTML = "";
+      }
 
       $scope.noRepeat = (file) => {
-        if (Object.keys($scope.documentWhole).includes($scope.fileName)) {
+        if (Object.keys($scope.documentWholeText).includes($scope.fileName)) {
           console.log('it contains');
         } else {
           console.log("it's empty");
@@ -49,182 +60,74 @@
         };
       };
 
-
-      $scope.collectFiles = (event) => {
-        const files = event.target.files;
-
-        for (file of files) {
-          ((file) => {
-            $scope.fileName = file.name;
-            $scope.$apply();
-            // console.log($scope.fileName);
-            const reader = new FileReader();
-            reader.onload = function (event) {
-              if ($scope.validateExt(event.target.result)) {
-
-                if ($scope.validateContent(JSON.parse(event.target.result))) {
-                  onFileComplete(JSON.parse(event.target.result));
-                  document.getElementById('createError').innerHTML = "";
-                  $scope.$apply();
-                } else {
-                  document.getElementById('createError').innerHTML = "*Upload a Valid JSON file please*";
-                };
-              } else {
-                document.getElementById('createError').innerHTML = "*Upload a JSON file please*";
-              };
-            };
-            reader.readAsText(file);
-            $scope.$apply();
-          })(file);
-        };
-      };
-
-
-      const onFileComplete = (response) => {
-
-        $scope.titleObj = {};
-        $scope.textObj = {};
-        // $scope.$apply();
-        // console.log($scope.textObj);
-
-        let count = 1;
-        console.log('whaaaaaaaaaaaaaaat');
-
-        for (let batter in response) {
-          $scope.titleObj[count] = response[batter].title
-          $scope.textObj[count] = response[batter].text
-          count++
-          $scope.$apply();
-        };
-        
-        // console.log($scope.textObj);
-        inverted_index.transformToSingles($scope.textObj);
-        inverted_index.transformToArray($scope.textObj);
-
-        $scope.wordSet = new Set(inverted_index.transformToArray($scope.textObj));
-        $scope.wordSet = Array.from($scope.wordSet).sort();
-        // $scope.$apply();
-        console.log($scope.wordSet);
-
-        inverted_index.createIndex($scope.textObj);
-        console.log ($scope.textObj);
-        $scope.documentWhole[$scope.fileName] = inverted_index.index;
-        $scope.documentWholeTitle[$scope.fileName] = $scope.titleObj;
-        console.log($scope.documentWhole);
-        console.log($scope.documentWholeTitle);
-        // console.log(Object.keys($scope.documentWholeTitle[$scope.fileName]).length);
+      $scope.getFiles = () => {
+        $scope.fileInput = document.getElementById('uploadBtn');
+        invertedIndex.badExt= [];
+        $scope.loadedFiles= [];
         $scope.$apply();
 
+        Object.keys($scope.fileInput.files).forEach((file) => {
+          $scope.fileName = $scope.fileInput.files[file].name;
+          console.log($scope.fileName);
+          if (invertedIndex.validateExt($scope.fileName)) {
+            $scope.loadedFiles.push($scope.fileInput.files[file]);
+            $scope.$apply();
+
+          } else {
+            $timeout(hideCreateError, 10000);
+          };
+        });
       };
 
-      $scope.showIndex = () => {
-        // console.log(document.getElementById('createIndex').value);
-        if ((document.getElementById('createIndex').value) == '? undefined:undefined ?') {
-          document.getElementById('createError').innerHTML = "*Select a JSON file please*";
+      $scope.readFile = (event) => {
+        console.log($scope.loadedFiles);
+        Object.keys($scope.loadedFiles).forEach((file) => {
+          console.log($scope.loadedFiles[file]);
+          invertedIndex.readFile($scope.loadedFiles[file],$scope.loadedFiles[file].name);
+          $timeout($scope.documentWholeText = invertedIndex.documentWholeText, 1000); //hmmmm
 
+
+        });
+        console.log('we good?');
+      };
+      
+      $scope.getIndex = () => {
+        if(!invertedIndex.getIndex()) {
+          $timeout(hideCreateError, 5000);
+          console.log('bad');
         } else {
+          console.log('good');
           $scope.document = true;
-          $scope.create = true;
+          $scope.get = true;
           $scope.search = false;
-          $scope.indexedFile = document.getElementById('createIndex').value.trim();
-          $scope.header = $scope.indexedFile.replace(/\.[^/.]+$/, "");
-
-          let jsonKey = $scope.indexedFile;
-          let docsNow = $scope.documentWhole;
-          $scope.text = docsNow[jsonKey];
-          $scope.title = $scope.documentWholeTitle[jsonKey];
-
-          $scope.fileRange = [];
-          $scope.$apply();
-          for (let i in ($scope.documentWholeTitle[jsonKey])) {
-            
-            $scope.fileRange.push(parseInt(i));
-          };
-          $scope.$apply(); 
-          // console.log($scope.text);
-
-          // console.log($scope.documentWhole);
+          $scope.all = false
+          $timeout(() => {
+            $scope.indexedFile = invertedIndex.indexedFile;
+            $scope.titles = invertedIndex.documentWholeTitle[invertedIndex.indexedFile];
+            $scope.text = invertedIndex.documentWholeText[invertedIndex.indexedFile];
+            $scope.fileRange = invertedIndex.documentRange[invertedIndex.indexedFile];
+            $scope.wordSet = invertedIndex.wordSet;
+          }, 1000);
         };
       };
-
-      const hideSearchError = () => {
-        document.getElementById("searchError").style.visibility = "hidden";
-      }
+      
 
       $scope.searchIndex = () => {
-        let empty = /^\s+$|^$/;
-        if ((document.getElementById('searchIndex').value) == '? undefined:undefined ?') {
-          document.getElementById('searchError').innerHTML = "*Select a JSON file please*";
-          document.getElementById('searchError').style.visibility = "visible";
+        if (!invertedIndex.searchIndex()){
           $timeout(hideSearchError, 4000);
-
         } else {
-          if ((empty.test(document.getElementById('wordInput').value))){
-            document.getElementById('searchError').innerHTML = "*Input a search term please*";
-            document.getElementById('searchError').style.visibility = "visible";
-            $timeout(hideSearchError, 4000);
-          }else{
-            let searchText = {};
-            $scope.searchAll = {};
-            let docsNow = $scope.documentWhole;
-            $scope.create = false;
-            $scope.search = true;
-            let words = document.getElementById('wordInput').value.trim();
-            let indexedFile = document.getElementById('searchIndex').value.trim();
-            // $scope.searchTitle = $scope.documentWholeTitle[indexedFile];
-            $scope.searchTitle = $scope.documentWholeTitle[indexedFile];
-            $scope.searchText = {};
-            words = words.split(/[\s,]+/);
-            tempo = [];
-            if (indexedFile === "All") {
-              for (let key in docsNow){
-                temp = {};
-                for (let i in words) {
-                  let word = words[i]
-                  temp[word]= docsNow[key][word];
-                  
-                  // $scope.searchAll.push(tempo);
-                };
-                tempo.push(temp);
-                console.log(tempo);
-                $scope.searchAll[key] = tempo;
-                
-              };
-            } else {
-              for (let i in words) {
-                let word = words[i]
-              };
-              $scope.searchText[word] = docsNow[indexedFile][word];
-            };
-            
-
-
-            
-            // console.log(temp);
-            console.log(tempo);
-            console.log($scope.searchAll);
-
-
-            // console.log(words);
-            // const search = (letters) => {
-            //   for (let i in letters) {
-            //     console.log($scope.documentWhole);
-            //     console.log($scope.documentWholeTitle);
-            //     console.log(letters[i]);
-            //     console.log(indexedFile);
-            //     let word = letters[i]
-            //     console.log(($scope.documentWhole[indexedFile][word]));
-            //     $scope.searchText[word] = $scope.documentWhole[indexedFile][word];
-            //   };
-            // };
-            //  if(indexedFile === "All") {
-               
-            //   } else {
-            //     search(words)
-            //   }
-            $scope.$apply();
-          }
-        };
+          $timeout(() => {
+            $scope.all = invertedIndex.all;
+            $scope.get = invertedIndex.get;
+            $scope.search = invertedIndex.search;
+            $scope.searchText = invertedIndex.searchText;
+            $scope.searchTitle = invertedIndex.searchTitle;
+            $scope.indexedFile = invertedIndex.indexedFile;
+            $scope.documentRange = invertedIndex.documentRange;
+            $scope.searchAll = invertedIndex.searchAll;
+            $scope.documentWholeTitle = invertedIndex.documentWholeTitle;
+          }, 1000);
+        }
       };
 
     }]);
