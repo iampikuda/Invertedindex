@@ -4,7 +4,12 @@
   "description": "searching for the index of a word, rather than getting the index first",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/gulp test"
+    "start": "node node_modules/.bin/gulp",
+    "test": "node node_modules/.bin/gulp test"
+  },
+  "engines": {
+    "node": "6.10.0",
+    "npm": "3.10.10"
   },
   "repository": {
     "type": "git",
@@ -25,6 +30,8 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
     "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-rename": "^1.2.2",
     "jasmine-core": "^2.5.2",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",

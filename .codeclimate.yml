@@ -1,17 +1,15 @@
 engines:
-  eslint:
-    enabled: true
   duplication:
     enabled: true
     config:
       languages:
       - javascript
+  eslint:
+    enabled: true
+    channel: "eslint-3"
+  fixme:
+    enabled: true
 ratings:
   paths:
-  - "**.js"
-exclude_paths:
-- 
-env:
-  browser: true
-  es6: true
-  node: true
+  - "/src/public/js/*.js"
+
