@@ -1,3 +1,38 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Alice in Wonderland",
+    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+  },
+
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring.",
+    "textis": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+  },
+  {
+    "title": "Marvel's agents of sheild.",
+    "text": "A rabbit with wizarding powers and an imagination of an usual spoon."
+  }
+]
+},{}],2:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Alice in Wonderland",
+    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+  },
+
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring.",
+    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+  },
+  {
+    "titl": "Marvel's agents of sheild.",
+    "tex": "A rabbit with wizarding powers and an imagination of an usual spoon."
+  }
+]
+},{}],3:[function(require,module,exports){
+module.exports=[]
+},{}],4:[function(require,module,exports){
 // bad content
 const badOne = require('./badOne.json');
 const badTwo = require('./badTwo.json');
@@ -244,3 +279,107 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   //   });
   // });
 });
+},{"./badOne.json":1,"./badTwo.json":2,"./empty.json":3,"./goodOne.json":5,"./goodThree.json":6,"./goodTwo.json":7,"./noArray.json":8,"./noArrayTwo.json":9,"./textArrayOne.json":10,"./textArrayTwo.json":11,"./textObjOne.json":12,"./textObjTwo.json":13,"./textObjWordArrayOne.json":14,"./textObjWordArrayTwo.json":15}],5:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Alice",
+    "text": "Alice falls and enters a world ."
+  },
+
+  {
+    "title": "The Fellowship of the Ring.",
+    "text": "An unusual alliance of man"
+  },
+  {
+    "title": "Marvel's .",
+    "text": "A rabbit with wizarding powers."
+  }
+]
+},{}],6:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Wonderland",
+    "text": "full of imagination."
+  },
+
+  {
+    "title": "The Lord.",
+    "text": "a powerful ring."
+  },
+  {
+    "title": "agents of sheild.",
+    "text": "A rabbit with an usual spoon."
+  }
+]
+},{}],7:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Aliceland",
+    "text": "a rabbit hole."
+  },
+  {
+    "title": "Rings: The Fellowship.",
+    "text": "man, elf, dwarf, wizard and hobbit"
+  },
+  {
+    "title": "Alice",
+    "text": "Alice falls and enters a world ."
+  },
+  {
+    "title": "agents.",
+    "text": "imagination of an usual spoon."
+  }
+]
+},{}],8:[function(require,module,exports){
+module.exports={
+    "tities": "Alice in Wonderland",
+    "text": "Alice falls into a rabbit hole and enters a world full of imagination.",
+    "title": "The Lord of the Rings: The Fellowship of the Ring.",
+    "texter": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.",
+    "titless": "Marvel's agents of sheild.",
+    "textis": "A rabbit with wizarding powers and an imagination of an usual spoon."
+}
+},{}],9:[function(require,module,exports){
+module.exports={
+  "title": "Alice in Wonderland",
+  "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+}
+},{}],10:[function(require,module,exports){
+module.exports={ 
+    "1": [ "a", "rabbit", "with", "an", "usual", "spoon" ], 
+    "2": [ "full", "of", "imagination" ], 
+    "3": [ "an", "unusual", "alliance", "of", "man" ] 
+}
+},{}],11:[function(require,module,exports){
+module.exports={ 
+    "1": [ "man", "elf", "dwarf", "wizard", "and", "hobbit" ], 
+    "2": [ "full", "of", "imagination" ], 
+    "3": [ "imagination", "of", "an", "usual", "spoon" ]
+}
+
+},{}],12:[function(require,module,exports){
+module.exports={
+    "1": "A rabbit with an usual spoon.",
+    "2": "full of imagination.",
+    "3": "An unusual alliance of man"
+}
+},{}],13:[function(require,module,exports){
+module.exports={
+    "1": "man, elf, dwarf, wizard and hobbit",
+    "2": "full of imagination.",
+    "3": "imagination of an usual spoon."
+}
+},{}],14:[function(require,module,exports){
+module.exports={
+    "1":["a","rabbit","hole"],
+    "2":["man","elf","dwarf","wizard","and","hobbit"],
+    "3":["alice","falls","and","enters","a","world"],
+    "4":["imagination","of","an","usual","spoon"]
+}
+},{}],15:[function(require,module,exports){
+module.exports={
+    "1":["full","of","imagination"],
+    "2":["a","powerful","ring"],
+    "3":["a","rabbit","with","an","usual","spoon"]
+}
+},{}]},{},[4])
