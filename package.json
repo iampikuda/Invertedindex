@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
     "karma": "^1.5.0"
   }
 }
