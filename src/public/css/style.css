@@ -1,21 +1,10 @@
 body {
     background: url("https://i.imgur.com/d3iE7tY.jpg") no-repeat center center fixed;
-    /*background-color: #FFD464;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    /*-webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);*/
-    /*overflow-y: scroll;*/
     min-width: 700px;
-}
-
-body * {
-    /*border: 2px solid black;*/
 }
 
 caption {
@@ -31,10 +20,10 @@ caption {
     justify-content: center;
     align-items: center;
     display: flex;
-    width: 40%;
+    width: 50%;
     position: fixed;
     top: 40%;
-    left: 30%;
+    left: 20%;
     border-radius: 25px;
     -moz-box-shadow:      0px 12px 6px -5px black;
     -webkit-box-shadow:   0px 12px 6px -5px black;
@@ -44,26 +33,13 @@ caption {
 #mainUpload {
     position: relative;
     display: inline-block;
-    /*border: 2px solid crimson;*/
+    padding: 20px;
     justify-content: center;
     align-items: center;
-    /*top: 50%;*/
-    /*left: 20%;*/
-}
-
-{
-
 }
 
 #banner .btn {
-    /*border: 1px dashed blue;*/
-    /*align-items: center;*/
     position: relative;
-    /*display: inline-block;*/
-    /*top: 50%;*/
-    /*left: 20%;*/
-    /*margin-right: -50%;*/
-    /*transform: translate(-50%, -50%)*/
 }
 
 #uploadBtnTable {
@@ -82,17 +58,14 @@ caption {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    /*font-size: 16px;*/
     margin: 0px 7px;
     cursor: pointer;
 }
 
 table { 
-    /*width: 100%; */
     border-collapse: collapse;
     max-height: 110%;
     overflow-y: scroll;
-    /*overflow: hidden;*/
     display: block;
     position: relative;
 }
@@ -123,7 +96,6 @@ tr td:not(:first-child) {
 
 #tableInner {
     height: 80%;
-    /*border: 2px solid red;*/
     position: relative;
 }
 
@@ -218,10 +190,6 @@ h3 {
     text-decoration: none;
 }
 
-/*#topBar li:hover {
-    -webkit-text-fill-color: navy;
-}*/
-
 #bottomBar {
     list-style-type: none;
     margin: 0;
@@ -237,16 +205,12 @@ h3 {
 #bottomBar li {
     font-family: 'Orbitron', sans-serif;
     float: left;
-    /*display: block;*/
     color: black;
     text-align: center;
     padding: 18px 16px;
     text-decoration: none;
-    /*display: table-cell;*/
-    /*vertical-align: middle;*/
     align-items: center;
     position: relative;
-    /*display: flex;*/
     align-items: center
 }
 
@@ -271,7 +235,6 @@ h3 {
 
 .btn .toolTipText {
     visibility: hidden;
-    /*width: 120px;*/
     background-color: #FFD464;
     color: black;
     text-align: center;
@@ -279,7 +242,7 @@ h3 {
     padding: 5px;
     margin: 0px;
 
-    /* Position the tooltip */
+    /* Position of the tooltip */
     position: absolute;
     display: inline-flex;
     z-index: 5;
@@ -314,7 +277,7 @@ h3 {
     font-family: 'VT323', monospace, serif;
 }
 
-#createError {
+#createError , #createNoError{
     font-family: 'VT323', monospace, serif;
     visibility: hidden;
 }

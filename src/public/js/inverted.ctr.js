@@ -28,41 +28,11 @@
         document.getElementById("createError").innerHTML = "";
       }
 
-      $scope.noRepeat = (file) => {
-        if (Object.keys($scope.documentWholeText).includes($scope.fileName)) {
-          console.log('it contains');
-        } else {
-          console.log("it's empty");
-        }
-      };
-
-      $scope.validateExt = (file) => {
-        if (!$scope.fileName.toLowerCase().match(/\.json$/)) {
-          alert('Upload a JSON file please');
-          return false
-        } else {
-          return true;
-        };
-
-      };
-
-      $scope.validateContent = (file) => {
-        if (typeof (file) === 'object') {
-          for (i in file) {
-            // console.log(typeof (file[i].title))
-            if (typeof (file[i].title) === 'undefined' || typeof (file[i].text) === 'undefined') {
-              alert('Upload a VALID JSON file please');
-              return false;
-            } else {
-              return true;
-            }
-          }
-        };
-      };
-
       $scope.getFiles = () => {
+        hideCreateError();
         $scope.fileInput = document.getElementById('uploadBtn');
         invertedIndex.badExt= [];
+        invertedIndex.goodExt= [];
         $scope.loadedFiles= [];
         $scope.$apply();
 
@@ -80,15 +50,15 @@
       };
 
       $scope.readFile = (event) => {
-        console.log($scope.loadedFiles);
+        document.getElementById("createNoError").innerHTML = "";
+        invertedIndex.badContent = [];
+        invertedIndex.goodContent = [];
         Object.keys($scope.loadedFiles).forEach((file) => {
           console.log($scope.loadedFiles[file]);
           invertedIndex.readFile($scope.loadedFiles[file],$scope.loadedFiles[file].name);
           $timeout($scope.documentWholeText = invertedIndex.documentWholeText, 1000); //hmmmm
-
-
         });
-        console.log('we good?');
+        $scope.loadedFiles = [];
       };
       
       $scope.getIndex = () => {

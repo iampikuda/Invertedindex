@@ -1,16 +1,16 @@
 class InvertedIndex {
 
 // readFile: Reads the data from the file being uploaded
-// validateFile: Ensures all the documents in a particular file is valid
+// validateFile: Ensures all the documents in a particular file is valid........
 // tokenize: Strips out special characters from documents to be indexed 
 // createIndex: Creates the index for documents
 // getIndex: Get’s indices created for particular files
 // searchIndex: Searches through one or more indices for words
 
   constructor() {
-    this.textArray = [];
     this.index = {};
     this.badExt = [];
+    this.goodExt = [];
     this.badContent = [];
     this.goodContent = [];
     this.documentWholeText = {};
@@ -20,14 +20,6 @@ class InvertedIndex {
     this.get = false;
     this.search = false;
   };
-
-  // noRepeat (file) {
-  //   if (Object.keys($scope.documentWholeText).includes($scope.fileName)) {
-  //     console.log('it contains');
-  //   } else {
-  //     console.log("it's empty");
-  //   }
-  // };
   
   validateExt (name) {
     if (!name.toLowerCase().match(/\.json$/)) {
@@ -37,39 +29,39 @@ class InvertedIndex {
       document.getElementById('createError').style.visibility = "visible";
       return false
     } else {
-      // document.getElementById('createError').innerHTML = "Good to go";
-      // document.getElementById('createError').style.visibility = "visible";
+      name =  " " + name;
+      this.goodExt.push(name);
+      document.getElementById('createNoError').innerHTML = "(" + this.goodExt + ") is/are GOOD TO GO &reg;";
+      document.getElementById('createNoError').style.visibility = "visible";
       return true;
     };
   };
 
   validateContent (file) {
     if (typeof (file) === 'object') {
+      // if ()
       for (let i in file) {
-        // console.log((file));
-        // console.log((file[i].text));
         if (typeof (file[i].title) === 'undefined' || typeof (file[i].text) === 'undefined') {
           return false;
         };
       };
       return true;
     };
+    return false;
   };
   
   readFile (event, fileName) {
-        // const fileName = event.name;
         const reader = new FileReader();
         reader.onload =  (event) => {
-          // console.log(event);
-          // console.log(event.target.result);
-          // console.log(JSON.parse(event.target.result));
-
-          if (this.validateContent(JSON.parse(event.target.result))) {
-            this.createIndex(event, fileName);
+          if (event.target.result === ""){
+            this.badContent.push(fileName);
+            document.getElementById('createError').innerHTML = "(" + this.badContent + ") is/are not a valid JSON file(s)";
+            document.getElementById('createError').style.visibility = "visible";
+          } else if (this.validateContent(JSON.parse(event.target.result))) {
+            this.createIndex(JSON.parse(event.target.result), fileName);
             this.goodContent.push(fileName);
             document.getElementById('createError').innerHTML = "(" + this.goodContent + ") successfully added";
             document.getElementById('createError').style.visibility = "visible";
-            console.log('here');
           } else {
             this.badContent.push(fileName);
             document.getElementById('createError').innerHTML = "(" + this.badContent + ") is/are not a valid JSON file(s)";
@@ -81,116 +73,95 @@ class InvertedIndex {
 
   };
 
-  createIndex (event, fileName) {
+  createIndex (file, fileName) {
 
     const titleObj = {};
     const textObj = {};
-    const file = JSON.parse(event.target.result)
-
-    console.log(event);
-    console.log(event.target.result);
-    
 
     let count = 1;
-    console.log('whaaaaaaaaaaaaaaat');
 
-    for (let book in file) {
-      titleObj[parseInt(count)] = file[book].title
-      textObj[parseInt(count)] = file[book].text
+    file.forEach((book) => {
+      titleObj[count] = book.title
+      textObj[count] = book.text
       count++
-    };
+    });
 
-    // console.log(textObj);
     this.transformToSingles(textObj);
     let wordArray = this.transformToArray(textObj);
-
     this.wordSet = new Set(wordArray);
     this.wordSet = Array.from(this.wordSet).sort();
-    // $apply();
-    // console.log(wordSet);
 
+    console.log(JSON.stringify(textObj));
     this.tokenize(textObj);
-    console.log (titleObj);
     this.documentWholeText[fileName] = this.index;
     this.documentWholeTitle[fileName] = titleObj;
-    console.log(this.documentWholeText);
-    console.log(this.documentWholeTitle);
-    // console.log(JSON.stringify(this.documentWholeTitle));
-
-
+    return this.index;
   };
 
 
   transformToSingles(file) {
-    for (let words in file) {
+    Object.keys(file).forEach((words) => {
       file[words] = file[words].replace(/'\w+\s/g, " ").replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase().split(' ')
-
-    };
+    });
+    return file
   };
 
   transformToArray(file) {
-    for (let key in file) {
+    this.textArray = [];
+    Object.keys(file).forEach((key) => {
       this.textArray = this.textArray.concat(file[key]);
-    };
+    });
     return this.textArray;
   };
 
   tokenize(obj) {
     this.index = {};
-    for (let key in obj) {
-      for (let word in this.textArray) {
-        
-        if (obj[key].includes(this.textArray[word])) {
-          if (this.index[this.textArray[word]] === undefined) {
-            this.index[this.textArray[word]] = [];
-            this.index[this.textArray[word]].push(parseInt(key));
-          }
-          else if (this.index[this.textArray[word]].includes(parseInt(key))) {
-            continue;
-          }
-          else {
-            // console.log("here");
-            this.index[this.textArray[word]].push(parseInt(key));
+    // console.log(obj);
+    // console.log(JSON.stringify(obj));
+    // console.log(Object.keys(obj))
+    Object.keys(obj).forEach((key) => {
+      console.log(obj[key]);
+      this.textArray.forEach((word) => {
+        if (obj[key].includes(word)) {
+          if (this.index[word] === undefined) {
+            this.index[word] = [];
+            this.index[word].push(parseInt(key));
+          } else if (this.index[word].includes(parseInt(key))) {
+            return;
+          } else {
+            this.index[word].push(parseInt(key));
           };
         } else {
-          // console.log("nope");
-          continue;
+          return;
         }
-      };
-    };
-    console.log(this.index);
-    // console.log(this.textArray);
+      });
+    });
+    console.log(JSON.stringify(this.index))
+    return this.index;
   };
 
 
   getIndex () {
-    // console.log(document.getElementById('createIndex').value);
+    this.indexedFile = document.getElementById('createIndex').value.trim();
+    this.text = this.documentWholeText[this.indexedFile];
+    this.titles = this.documentWholeTitle[this.indexedFile];
+    this.fileRange = [];
     if ((document.getElementById('createIndex').value) == '? undefined:undefined ?') {
       document.getElementById('createError').innerHTML = "*Select a JSON file please*";
       document.getElementById('createError').style.visibility = "visible";
-      console.log('false');
       return false; 
+    } else if (this.documentRange[this.indexedFile]) {
+      return true;
     } else {
-      this.indexedFile = document.getElementById('createIndex').value.trim();
-
-      this.text = this.documentWholeText[this.indexedFile];
-      this.titles = this.documentWholeTitle[this.indexedFile];
-
-      this.fileRange = [];
-      for (let i in this.titles) {
-        
+      Object.keys(this.titles).forEach((i) => {
         this.fileRange.push(parseInt(i));
-      };
+      });
       this.documentRange[this.indexedFile] = this.fileRange;
-      console.log(this.documentWholeTitle);
-      console.log(this.documentWholeText);
-      console.log(this.fileRange);
-      console.log(this.documentRange);
-      return true
-
+      return true;
     };
   };
-  searchIndex(file) {
+
+  searchIndex() {
     let empty = /^\s+$|^$/;
     this.searchAll = {};
     let words = document.getElementById('wordInput').value.trim();
@@ -213,18 +184,17 @@ class InvertedIndex {
       this.all = true;
       this.get = false;
       this.search = false;
-      for (let key in this.documentWholeText){
+      Object.keys(this.documentWholeText).forEach((key) => {
         let tempObj = {};
         let tempArray = [];
-        for (let i in words) {
-          let word = words[i]
+        words.forEach((i) => {
+          let word = i
           tempObj[word]= this.documentWholeText[key][word];
-        };
+        });
         tempArray.push(tempObj);
-        console.log(this.documentWholeTitle);
         this.searchAll[key] = tempArray;
         
-      };
+      });
       return true;
     } else if (this.documentRange[this.indexedFile] === undefined) {
         document.getElementById('searchError').innerHTML = "*Please create index first to search through file*";
@@ -236,11 +206,10 @@ class InvertedIndex {
       this.get = false;
       this.search = true;
       this.all = false;
-      for (let i in words) {
-        let word = words[i];
+      words.forEach((i) => {
+        let word = i;
         this.searchText[word] = this.documentWholeText[this.indexedFile][word];
-      };
-      // console.log(this.searchText);
+      });
       return true;
     };
   };

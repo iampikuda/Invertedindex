@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'src/public/js/index.js',
-      'jasmine/spec/inverted-index-test.js'
+      'jasmine/bundles/bundles.js'
     ],
 
 
@@ -30,7 +30,6 @@ module.exports = function(config) {
     preprocessors: {
       'src/public/js/index.js': ['coverage']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
