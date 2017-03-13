@@ -120,7 +120,6 @@ class InvertedIndex {
     // console.log(JSON.stringify(obj));
     // console.log(Object.keys(obj))
     Object.keys(obj).forEach((key) => {
-      console.log(obj[key]);
       this.textArray.forEach((word) => {
         if (obj[key].includes(word)) {
           if (this.index[word] === undefined) {
