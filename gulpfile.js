@@ -11,9 +11,10 @@ gulp.task('serve', () => {
       baseDir: './',
       index: 'src/views/index.html'
     },
-    options: {
-      watchTask: true
-    }
+    port: process.env.PORT || 9000,
+    ghostMode: false,
+    open: false
+    
   });
 });
 
