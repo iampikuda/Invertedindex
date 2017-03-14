@@ -5,6 +5,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     min-width: 700px;
+    overflow: auto;
 }
 
 caption {
@@ -68,6 +69,13 @@ table {
     overflow-y: scroll;
     display: block;
     position: relative;
+    padding-bottom: 3px;
+}
+
+#allTable {
+    max-height: 110%;
+    overflow: hidden;
+    overflow: scroll;
 }
 
 
