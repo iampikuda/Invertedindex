@@ -50,7 +50,6 @@ class InvertedIndex {
     return this.tokenize(textObj);
   };
 
-
   transformToSingles(file) {
     Object.keys(file).forEach((words) => {
       file[words] = file[words].replace(/'\w+\s/g, " ").replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase().split(' ')
@@ -127,6 +126,4 @@ class InvertedIndex {
       return this.searchText;
     };
   };
-
-
 }
