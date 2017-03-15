@@ -1,12 +1,13 @@
+/**
+ * A class to create and search for indexes
+ * @class InvertedIndex
+ */
 class InvertedIndex {
 
-// readFile: Reads the data from the file being uploaded
-// validateFile: Ensures all the documents in a particular file is valid........
-// tokenize: Strips out special characters from documents to be indexed 
-// createIndex: Creates the index for documents.......
-// getIndex: Get’s indices created for particular files
-// searchIndex: Searches through one or more indices for words
-
+  /**
+   * Creates an instance of InvertedIndex.
+   * @memberOf InvertedIndex
+   */
   constructor() {
     this.index = {};
     this.documentWholeText = {};
@@ -15,115 +16,144 @@ class InvertedIndex {
     this.all = false;
     this.get = false;
     this.search = false;
-  };
+  }
 
-  validateContent (file) {
-    if (typeof (file) === 'object') {
-      // if ()
-      for (let i in file) {
-        if (typeof (file[i].title) === 'undefined' || typeof (file[i].text) === 'undefined') {
-          return false;
-        };
-      };
+  /**
+   * To validate the content of JSON files
+   * @static
+   * @param {Object} file - Parsed JSON file
+   * @returns {Boolean} True or False
+   * @memberOf InvertedIndex
+   */
+  static validateContent(file) {
+    let tempBoolean = true;
+    file.forEach((book) => {
+      if (typeof (book.title) === 'undefined' || typeof (book.text) === 'undefined') {
+        tempBoolean = false;
+      }
+    });
+    if (tempBoolean) {
       return true;
-    };
+    }
     return false;
-  };
+  }
 
-  createIndex (file, fileName) {
-
+  /**
+   * Indexes JSON file
+   * @param {Object} file - JSON file uploaded into app to be indexed
+   * @param {String} fileName - Name of JSON file
+   * @returns {Object} - Words as keys and a value of a array with their repective books
+   * @memberOf InvertedIndex
+   */
+  createIndex(file, fileName) {
     const titleObj = {};
     const textObj = {};
-
     let count = 1;
-
     file.forEach((book) => {
-      titleObj[count] = book.title
-      textObj[count] = book.text
-      count++
+      titleObj[count] = book.title;
+      textObj[count] = book.text;
+      count += 1;
     });
-
-    this.transformToSingles(textObj);
-    this.tokenize(textObj);
+    InvertedIndex.transformToSingles(textObj);
     this.documentWholeText[fileName] = this.tokenize(textObj);
     this.documentWholeTitle[fileName] = titleObj;
-    return this.tokenize(textObj);
-  };
 
-  transformToSingles(file) {
-    Object.keys(file).forEach((words) => {
-      file[words] = file[words].replace(/'\w+\s/g, " ").replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase().split(' ')
+    return this.documentWholeText[fileName];
+  }
+
+  /**
+   * To separate words and fix into array
+   * @static
+   * @param {Object} textObj - Object with all the words together as string
+   * @returns {Object} - Object with all the words separated and in array
+   * @memberOf InvertedIndex
+   */
+  static transformToSingles(textObj) {
+    Object.keys(textObj).forEach((words) => {
+      textObj[words] = textObj[words].replace(/'\w+\s/g, ' ').replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase()
+      .split(' ');
     });
-    return file
-  };
+    return textObj;
+  }
 
-  transformToArray(file) {
+  /**
+   * To join words together into array
+   * @param {Object} textObj - Object with all the words to be tokenized
+   * @returns {Object} - All words together in an array
+   * @memberOf InvertedIndex
+   */
+  transformToArray(textObj) {
     this.textArray = [];
-    Object.keys(file).forEach((key) => {
-      this.textArray = this.textArray.concat(file[key]);
+    Object.keys(textObj).forEach((key) => {
+      this.textArray = this.textArray.concat(textObj[key]);
     });
     return this.textArray;
-  };
+  }
 
-  tokenize(obj) {
-    let wordArray = this.transformToArray(obj);
+  /**
+   * To tokenize all words
+   * @param {Object} textObj - Object with all the words to be tokenized
+   * @returns {Object} - Words as keys and a value of a array with their repective books
+   * @memberOf InvertedIndex
+   */
+  tokenize(textObj) {
+    const wordArray = this.transformToArray(textObj);
     this.wordSet = new Set(wordArray);
     this.wordSet = Array.from(this.wordSet).sort();
 
     this.index = {};
-    Object.keys(obj).forEach((key) => {
+    Object.keys(textObj).forEach((key) => {
       wordArray.forEach((word) => {
-        if (obj[key].includes(word)) {
+        if (textObj[key].includes(word)) {
           if (this.index[word] === undefined) {
             this.index[word] = [];
-            this.index[word].push(parseInt(key));
-          } else if (this.index[word].includes(parseInt(key))) {
+            this.index[word].push(parseInt(key, 10));
+          } else if (this.index[word].includes(parseInt(key, 10))) {
             return;
           } else {
-            this.index[word].push(parseInt(key));
-          };
-        } else {
-          return;
+            this.index[word].push(parseInt(key, 10));
+          }
         }
       });
     });
     return this.index;
-  };
+  }
 
+  /**
+   * To search through up
+   * @param {String} words - Word(s) to be searched through
+   * @param {String} indexedFile - JSON file of interest
+   * @param {Object} allText - Object containing all text
+   * @returns {Object} - Search object
+   * @memberOf InvertedIndex
+   */
   searchIndex(words, indexedFile, allText) {
-    
     this.searchAll = {};
-
-    
     this.searchText = {};
     words = words.split(/[\s,]+/);
-
-    if (indexedFile === "All") {
+    if (indexedFile === 'All') {
       this.all = true;
       this.get = false;
       this.search = false;
       Object.keys(allText).forEach((key) => {
-        let tempObj = {};
-        let tempArray = [];
+        const tempObj = {};
+        const tempArray = [];
         words.forEach((i) => {
-          let word = i
-          tempObj[word]= allText[key][word];
+          const word = i;
+          tempObj[word] = allText[key][word];
         });
         tempArray.push(tempObj);
         this.searchAll[key] = tempArray;
-        
       });
       return this.searchAll;
-    }  else {
-      
-      this.get = false;
-      this.search = true;
-      this.all = false;
-      words.forEach((i) => {
-        let word = i;
-        this.searchText[word] = allText[indexedFile][word];
-      });
-      return this.searchText;
-    };
-  };
+    }
+    this.get = false;
+    this.search = true;
+    this.all = false;
+    words.forEach((i) => {
+      const word = i;
+      this.searchText[word] = allText[indexedFile][word];
+    });
+    return this.searchText;
+  }
 }
