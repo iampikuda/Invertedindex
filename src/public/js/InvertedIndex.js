@@ -124,7 +124,7 @@ class InvertedIndex {
    * @param {String} words - Word(s) to be searched through
    * @param {String} indexedFile - JSON file of interest
    * @param {Object} allText - Object containing all text
-   * @returns {Object} - Search object
+   * @returns {Object} - Object containin searched words and their locations
    * @memberOf InvertedIndex
    */
   searchIndex(words, indexedFile, allText) {
