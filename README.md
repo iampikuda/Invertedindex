@@ -1,6 +1,6 @@
 # **INVERTED-INDEX**
 [![Code Climate](https://codeclimate.com/github/andela-opikuda/Invertedindex/badges/gpa.svg)](https://codeclimate.com/github/andela-opikuda/Invertedindex) 
-[![Coverage Status](https://coveralls.io/repos/github/andela-opikuda/Invertedindex/badge.svg?branch=switch)](https://coveralls.io/github/andela-opikuda/Invertedindex?branch=switch) 
+[![Coverage Status](https://coveralls.io/repos/github/andela-opikuda/Invertedindex/badge.svg?branch=switch4)](https://coveralls.io/github/andela-opikuda/Invertedindex?branch=switch) 
 [![Build Status](https://travis-ci.org/andela-opikuda/Invertedindex.svg?branch=switch)](https://travis-ci.org/andela-opikuda/Invertedindex)
 
 ## What Is Inverted index?

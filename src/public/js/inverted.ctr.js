@@ -1,5 +1,5 @@
 (() => {
-  angular.module('ngInverted')
+  angular.module('ngInverted', ['ngMaterial', 'ngMdIcons'])
     .controller('UploadFile', ['$scope', '$http', '$timeout', ($scope, $http, $timeout) => {
       $scope.titleObj = {};
       $scope.textObj = {};
