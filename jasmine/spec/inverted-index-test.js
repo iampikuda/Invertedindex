@@ -22,15 +22,6 @@ const allTitles = require('./allTitles.json');
 
 
 const invertedIndex = new InvertedIndex();
-
-// describe('Inverted Index Test', () => {
-//   describe('It Validate Book Data', () => {
-//     it('should return invalid file type if book is not an array of objects',
-//      () => {
-//        expect(true).toBe(true);
-//      });
-//   });
-// });
 describe('INVERTED INDEX CLASS TESTS', () => {
   describe('Inverted Index classes', () => {
     it('should check that it the class has a createIndex method', () => {
