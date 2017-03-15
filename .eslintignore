@@ -8,3 +8,5 @@ karam.conf.js
 ./src/app/js/index.js
 karma.conf.js
 gulpfile.js
+bundles/
+inverted-index-test.js

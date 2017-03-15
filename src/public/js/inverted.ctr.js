@@ -1,4 +1,4 @@
-(function () {
+(() => {
   angular.module('ngInverted')
     .controller('UploadFile', ['$scope', '$http', '$timeout', ($scope, $http, $timeout) => {
       $scope.titleObj = {};
@@ -179,4 +179,4 @@
         $scope.$apply();
       };
     }]);
-}());
+})();
