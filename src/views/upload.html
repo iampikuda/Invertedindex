@@ -1,8 +1,10 @@
 <div ng-hide="upload" ng-controller="UploadFile">
+  <header>
   <ul id="topBar">
 		<li id="head"> <a style="text-decoration:none; color:  black" href="/">Inverted Index</a> </li>
 
 	</ul>
+  </header>
   <div id="banner" ng-hide="showHelp || document">
     <div id="mainUpload">
       
@@ -28,12 +30,12 @@
           <div id="createError"> </div>
           <div id="createNoError"> </div>
           
-          <button onclick="angular.element(this).scope().readFile()">UPLOAD</button>
+          <button ng-show="filesPicked" onclick="angular.element(this).scope().readFile()">UPLOAD</button>
           
-          <div class="btn">  
+          <div class="btn" ng-show="filesUploaded">  
             <label for="sort"> Book: </label>
-            <select id="createIndex" ng-model="bookListCreate" name="sort">
-              <option ng-repeat="(key, value) in documentWholeText" ng-model="books">{{key}}</option>
+            <select id="createIndex" ng-model="index" name="sort">
+              <option ng-repeat="(key, value) in documentWholeText" >{{key}}</option>
             </select>
             <button onclick="angular.element(this).scope().getIndex()">GET INDEX</button>
           </div>
@@ -59,17 +61,17 @@
         <!---->
         <!--CREATE INDEX-->
             <label for="sort"> Book: </label>
-            <select id="createIndex" ng-model="bookListCreate" name="sort">
+            <select ng-model="index" name="sort">
               <option ng-repeat="(key, value) in documentWholeText">{{key}}</option>
             </select>
-            <button onclick="angular.element(this).scope().getIndex()">Create Index</button>
+            <button onclick="angular.element(this).scope().getIndex()">GET INDEX</button>
         <!---->
           </li>
 
         <!--SEARCH-->
           <li>
             <label> Search through: </label>
-            <select id="searchIndex" ng-model="bookListSearch" name="sort">
+            <select id="searchIndex"  name="sort">
               <option>All</option>
               <option ng-repeat="(key, value) in documentWholeText">{{key}}</option>
             </select>
@@ -150,7 +152,8 @@
         </table>
     <!---->
     <!--SEARCH ALL TABLE CONTENT-->
-        <table ng-show="all" ng-repeat="(book,array) in searchAll">
+      <div ng-show="all" id="allTable">
+        <table ng-repeat="(book,array) in searchAll">
           <caption> {{book}}</caption>
           <thead>
             <tr>
@@ -180,6 +183,7 @@
             
           </tbody>
         </table>
+      </div>
     <!---->
       </div>
     </div>
@@ -221,18 +225,12 @@
 
 
   <!--BOTTOM BAR-->
-
+  <footer>
   <ul id="bottomBar">
     <li> &copy; Copyright 2017 Inverted Index PK </li>
-    
-    <!--<li>
-      <span>Upload another file here</span>
-      <ng-md-icon ng-click="showHelp = ! showHelp" icon="chevron_right" style="fill: red" size="20"></ng-md-icon>
-      <ng-md-icon ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2" size="20"></ng-md-icon>
-    </li>-->
     <li style="float: right"> 
       <ng-md-icon id="smallHelpBtn" ng-click="showHelp = ! showHelp" icon="help" style="fill: #1352A2; cursor:pointer" size="20"></ng-md-icon>
     </li>
-
   </ul>
+  </footer>
 </div>

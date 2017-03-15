@@ -3,38 +3,18 @@ class InvertedIndex {
 // readFile: Reads the data from the file being uploaded
 // validateFile: Ensures all the documents in a particular file is valid........
 // tokenize: Strips out special characters from documents to be indexed 
-// createIndex: Creates the index for documents
+// createIndex: Creates the index for documents.......
 // getIndex: Get’s indices created for particular files
 // searchIndex: Searches through one or more indices for words
 
   constructor() {
     this.index = {};
-    this.badExt = [];
-    this.goodExt = [];
-    this.badContent = [];
-    this.goodContent = [];
     this.documentWholeText = {};
     this.documentWholeTitle = {};
     this.documentRange = {};
     this.all = false;
     this.get = false;
     this.search = false;
-  };
-  
-  validateExt (name) {
-    if (!name.toLowerCase().match(/\.json$/)) {
-      name =  " " + name;
-      this.badExt.push(name);
-      document.getElementById('createError').innerHTML = "(" + this.badExt + ") is/are not a JSON file(s)";
-      document.getElementById('createError').style.visibility = "visible";
-      return false
-    } else {
-      name =  " " + name;
-      this.goodExt.push(name);
-      document.getElementById('createNoError').innerHTML = "(" + this.goodExt + ") is/are GOOD TO GO &reg;";
-      document.getElementById('createNoError').style.visibility = "visible";
-      return true;
-    };
   };
 
   validateContent (file) {
@@ -48,29 +28,6 @@ class InvertedIndex {
       return true;
     };
     return false;
-  };
-  
-  readFile (event, fileName) {
-        const reader = new FileReader();
-        reader.onload =  (event) => {
-          if (event.target.result === ""){
-            this.badContent.push(fileName);
-            document.getElementById('createError').innerHTML = "(" + this.badContent + ") is/are not a valid JSON file(s)";
-            document.getElementById('createError').style.visibility = "visible";
-          } else if (this.validateContent(JSON.parse(event.target.result))) {
-            this.createIndex(JSON.parse(event.target.result), fileName);
-            this.goodContent.push(fileName);
-            document.getElementById('createError').innerHTML = "(" + this.goodContent + ") successfully added";
-            document.getElementById('createError').style.visibility = "visible";
-          } else {
-            this.badContent.push(fileName);
-            document.getElementById('createError').innerHTML = "(" + this.badContent + ") is/are not a valid JSON file(s)";
-            document.getElementById('createError').style.visibility = "visible";
-          };
-
-        };
-        reader.readAsText(event);
-
   };
 
   createIndex (file, fileName) {
@@ -87,17 +44,11 @@ class InvertedIndex {
     });
 
     this.transformToSingles(textObj);
-    let wordArray = this.transformToArray(textObj);
-    this.wordSet = new Set(wordArray);
-    this.wordSet = Array.from(this.wordSet).sort();
-
-    console.log(JSON.stringify(textObj));
     this.tokenize(textObj);
-    this.documentWholeText[fileName] = this.index;
+    this.documentWholeText[fileName] = this.tokenize(textObj);
     this.documentWholeTitle[fileName] = titleObj;
-    return this.index;
+    return this.tokenize(textObj);
   };
-
 
   transformToSingles(file) {
     Object.keys(file).forEach((words) => {
@@ -115,12 +66,13 @@ class InvertedIndex {
   };
 
   tokenize(obj) {
+    let wordArray = this.transformToArray(obj);
+    this.wordSet = new Set(wordArray);
+    this.wordSet = Array.from(this.wordSet).sort();
+
     this.index = {};
-    // console.log(obj);
-    // console.log(JSON.stringify(obj));
-    // console.log(Object.keys(obj))
     Object.keys(obj).forEach((key) => {
-      this.textArray.forEach((word) => {
+      wordArray.forEach((word) => {
         if (obj[key].includes(word)) {
           if (this.index[word] === undefined) {
             this.index[word] = [];
@@ -135,83 +87,43 @@ class InvertedIndex {
         }
       });
     });
-    console.log(JSON.stringify(this.index))
     return this.index;
   };
 
-
-  getIndex () {
-    this.indexedFile = document.getElementById('createIndex').value.trim();
-    this.text = this.documentWholeText[this.indexedFile];
-    this.titles = this.documentWholeTitle[this.indexedFile];
-    this.fileRange = [];
-    if ((document.getElementById('createIndex').value) == '? undefined:undefined ?') {
-      document.getElementById('createError').innerHTML = "*Select a JSON file please*";
-      document.getElementById('createError').style.visibility = "visible";
-      return false; 
-    } else if (this.documentRange[this.indexedFile]) {
-      return true;
-    } else {
-      Object.keys(this.titles).forEach((i) => {
-        this.fileRange.push(parseInt(i));
-      });
-      this.documentRange[this.indexedFile] = this.fileRange;
-      return true;
-    };
-  };
-
-  searchIndex() {
-    let empty = /^\s+$|^$/;
+  searchIndex(words, indexedFile, allText) {
+    
     this.searchAll = {};
-    let words = document.getElementById('wordInput').value.trim();
-    this.indexedFile = document.getElementById('searchIndex').value.trim();
-    this.searchTitle = this.documentWholeTitle[this.indexedFile];
+
+    
     this.searchText = {};
     words = words.split(/[\s,]+/);
 
-    if ((document.getElementById('searchIndex').value) == '? undefined:undefined ?') {
-      document.getElementById('searchError').innerHTML = "*Select a JSON file please*";
-      document.getElementById('searchError').style.visibility = "visible";
-      return false;
-
-    } else if ((empty.test(document.getElementById('wordInput').value))){
-      document.getElementById('searchError').innerHTML = "*Input a search term please*";
-      document.getElementById('searchError').style.visibility = "visible";
-      return false;
-
-    } else if (this.indexedFile === "All") {
+    if (indexedFile === "All") {
       this.all = true;
       this.get = false;
       this.search = false;
-      Object.keys(this.documentWholeText).forEach((key) => {
+      Object.keys(allText).forEach((key) => {
         let tempObj = {};
         let tempArray = [];
         words.forEach((i) => {
           let word = i
-          tempObj[word]= this.documentWholeText[key][word];
+          tempObj[word]= allText[key][word];
         });
         tempArray.push(tempObj);
         this.searchAll[key] = tempArray;
         
       });
-      return true;
-    } else if (this.documentRange[this.indexedFile] === undefined) {
-        document.getElementById('searchError').innerHTML = "*Please create index first to search through file*";
-        document.getElementById('searchError').style.visibility = "visible";
-
-        return false;
-
-    } else {
+      return this.searchAll;
+    }  else {
+      
       this.get = false;
       this.search = true;
       this.all = false;
       words.forEach((i) => {
         let word = i;
-        this.searchText[word] = this.documentWholeText[this.indexedFile][word];
+        this.searchText[word] = allText[indexedFile][word];
       });
-      return true;
+      return this.searchText;
     };
   };
-
-
 }
