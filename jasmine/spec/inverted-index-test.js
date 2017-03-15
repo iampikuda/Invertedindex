@@ -7,9 +7,6 @@ const goodTwo = require('./goodTwo.json');
 const goodThree = require('./goodThree.json');
 // empty
 const empty = require('./empty.json');
-// bad content, no array
-const noArray = require('./noArray.json');
-const noArrayTwo = require('./noArrayTwo.json');
 // text objects
 const textObjOne = require('./textObjOne.json');
 const textObjTwo = require('./textObjTwo.json');
@@ -42,7 +39,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
 
     it('should check that class has a getIndex method', () => {
-      expect(typeof InvertedIndex.prototype.validateContent).toBe('function');
+      expect(typeof InvertedIndex.validateContent).toBe('function');
     });
 
     it('should check that it has a searchIndex method', () => {
@@ -50,7 +47,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
 
     it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.prototype.transformToSingles).toBe('function');
+      expect(typeof InvertedIndex.transformToSingles).toBe('function');
     });
 
     it('should check that it has a searchIndex method', () => {
@@ -138,7 +135,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   describe('Transform To Singles Function', () => {
     it(`should return an object with all words as keys and indexes of the 
     books they are contained in when given a valid book as input`, () => {
-      expect(invertedIndex.transformToSingles(textObjOne))
+      expect(InvertedIndex.transformToSingles(textObjOne))
        .toEqual(
          { 
            '1': [ 'a', 'rabbit', 'with', 'an', 'usual', 'spoon' ], 
@@ -149,7 +146,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
     it(`should return an object with all words as keys and indexes of the 
     books they are contained in when given a valid book as input`, () => {
-      expect(invertedIndex.transformToSingles(textObjTwo))
+      expect(InvertedIndex.transformToSingles(textObjTwo))
        .toEqual(
          { 
            '1': [ 'man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit' ], 
@@ -163,7 +160,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   describe('Create Function', () => {
     it(`should return an object with all words as keys and indexes of the 
     books they are contained in when given a valid book as input`, () => {
-      expect(invertedIndex.createIndex(goodOne))
+      expect(invertedIndex.createIndex(goodOne, 'goodOne.json'))
        .toEqual(
          { 
            alice: [ 1 ], falls: [ 1 ], and: [ 1 ],
@@ -193,37 +190,27 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   describe('Validate Content Function', () => {
     it(`should return true when given a
     valid book as input`, () => {
-      expect(invertedIndex.validateContent(goodOne))
+      expect(InvertedIndex.validateContent(goodOne))
        .toBe(true);
     });
     it(`should return true when given a
     valid book as input`, () => {
-      expect(invertedIndex.validateContent(goodTwo))
+      expect(InvertedIndex.validateContent(goodTwo))
        .toBe(true);
     });
     it(`should return true when given a
     valid book as input`, () => {
-      expect(invertedIndex.validateContent(goodThree))
+      expect(InvertedIndex.validateContent(goodThree))
        .toBe(true);
     });
     it(`should return false when given an
    invalid book as input`, () => {
-      expect(invertedIndex.validateContent(badOne))
+      expect(InvertedIndex.validateContent(badOne))
        .toBe(false);
     });
     it(`should return false when given an
    invalid book as input`, () => {
-      expect(invertedIndex.validateContent(badTwo))
-       .toBe(false);
-    });
-    it(`should return false when given an
-   invalid book as input`, () => {
-      expect(invertedIndex.validateContent(noArray))
-       .toBe(false);
-    });
-    it(`should return false when given an
-   invalid book as input`, () => {
-      expect(invertedIndex.validateContent(noArrayTwo))
+      expect(InvertedIndex.validateContent(badTwo))
        .toBe(false);
     });
   });

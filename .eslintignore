@@ -1,0 +1,10 @@
+./node_modules/*
+./jasmine/*
+./coverage/*
+karam.conf.js
+./jasmine/*
+./coverage/*
+./src/app/app.js
+./src/app/js/index.js
+karma.conf.js
+gulpfile.js
