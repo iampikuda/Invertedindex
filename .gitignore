@@ -38,6 +38,7 @@ bower_components
 .node_repl_history
 
 # vscode folder
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
