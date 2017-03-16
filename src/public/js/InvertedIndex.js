@@ -109,7 +109,7 @@ class InvertedIndex {
             this.index[word] = [];
             this.index[word].push(parseInt(key, 10));
           } else if (this.index[word].includes(parseInt(key, 10))) {
-            return;
+            return undefined;
           } else {
             this.index[word].push(parseInt(key, 10));
           }

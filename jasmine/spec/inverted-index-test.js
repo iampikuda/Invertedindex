@@ -1,6 +1,6 @@
 // bad content
-const badOne = require('./badOne.json');
-const badTwo = require('./badTwo.json');
+const invalidKeysOne = require('./invalidKeysOne.json');
+const invalidKeysTwo = require('./invalidKeysTwo.json');
 // good content
 const goodOne = require('./goodOne.json');
 const goodTwo = require('./goodTwo.json');
@@ -246,11 +246,11 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         .toBe(true);
     });
     it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(badOne))
+      expect(InvertedIndex.validateContent(invalidKeysOne))
         .toBe(false);
     });
     it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(badTwo))
+      expect(InvertedIndex.validateContent(invalidKeysTwo))
         .toBe(false);
     });
   });

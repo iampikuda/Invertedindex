@@ -6,6 +6,7 @@ body {
     background-size: cover;
     min-width: 700px;
     overflow: auto;
+    font-family: 'Black Ops One', cursive;
 }
 
 caption {
@@ -26,9 +27,9 @@ caption {
     top: 40%;
     left: 20%;
     border-radius: 25px;
-    -moz-box-shadow:      0px 12px 6px -5px black;
-    -webkit-box-shadow:   0px 12px 6px -5px black;
-    box-shadow:           0px 12px 6px -5px black;
+    -moz-box-shadow:      0 12px 6px -5px black;
+    -webkit-box-shadow:   0 12px 6px -5px black;
+    box-shadow:           0 12px 6px -5px black;
 }
 
 #mainUpload {
@@ -51,19 +52,20 @@ caption {
     background: linear-gradient(#66B0FA, #077AFF);
     border: none;
     border-radius: 5px;
-    -moz-box-shadow:      0px 6px 10px -5px black;
-    -webkit-box-shadow:   0px 6px 10px -5px black;
-    box-shadow:           0px 6px 10px -5px black;
+    -moz-box-shadow:      0 6px 10px -5px black;
+    -webkit-box-shadow:   0 6px 10px -5px black;
+    box-shadow:           0 6px 10px -5px black;
 
     color: ghostwhite;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin: 0px 7px;
+    margin: 0 7px;
     cursor: pointer;
 }
 
 table { 
+    font-family: 'Indie Flower', cursive;
     border-collapse: collapse;
     max-height: 110%;
     overflow-y: scroll;
@@ -137,8 +139,8 @@ label span {
 }
 #mainUpload ul {
     list-style: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 #table li {
@@ -149,8 +151,8 @@ label span {
 }
 
 h3 {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     left: -50%;    
     display: block;
 }
@@ -219,7 +221,6 @@ h3 {
     text-decoration: none;
     align-items: center;
     position: relative;
-    align-items: center
 }
 
 #bottomBar li span {
@@ -235,7 +236,7 @@ h3 {
 }
 
 .btn {
-    padding: 0px 10px;
+    padding: 0 10px;
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -248,7 +249,7 @@ h3 {
     text-align: center;
     border-radius: 3px;
     padding: 5px;
-    margin: 0px;
+    margin: 0;
 
     /* Position of the tooltip */
     position: absolute;
@@ -275,7 +276,7 @@ h3 {
     text-align: center;
     border-radius: 30px;
     padding: 5px;
-    margin: 0px;
+    margin: 0;
     position: absolute;
     z-index: 5;
     top: 3%;

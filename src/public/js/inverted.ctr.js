@@ -79,34 +79,39 @@
         }
       };
 
+      const notValid = (fileName) => {
+        badContent.push(fileName);
+        document.getElementById('createError').innerHTML = `(${badContent}) is/are not a valid JSON file(s)`;
+        document.getElementById('createError').style.visibility = 'visible';
+      };
+
       $scope.readSingleFile = (event, fileName) => {
         const reader = new FileReader();
         reader.onload = (e) => {
-          if (e.target.result === '') {
-            badContent.push(fileName);
-            document.getElementById('createError').innerHTML = `(${badContent}) is/are not a valid JSON file(s)`;
-            document.getElementById('createError').style.visibility = 'visible';
-            return;
-          } else if (!(JSON.parse(e.target.result) instanceof Array)) {
-            badContent.push(fileName);
-            document.getElementById('createError').innerHTML = `(${badContent}) is/are not a valid JSON file(s)`;
-            document.getElementById('createError').style.visibility = 'visible';
-          } else if (InvertedIndex.validateContent(JSON.parse(e.target.result))) {
-            invertedIndex.createIndex(JSON.parse(e.target.result), fileName);
-            goodContent.push(fileName);
-            document.getElementById('createError').innerHTML = `(${goodContent}) successfully added`;
-            document.getElementById('createError').style.visibility = 'visible';
-          } else {
-            badContent.push(fileName);
-            document.getElementById('createError').innerHTML = `(${badContent}) is/are not a valid JSON file(s)`;
-            document.getElementById('createError').style.visibility = 'visible';
-            return;
+          try {
+            if (e.target.result === '') {
+              notValid(fileName);
+              return;
+            } else if (!(JSON.parse(e.target.result) instanceof Array)) {
+              notValid(fileName);
+              return;
+            } else if (InvertedIndex.validateContent(JSON.parse(e.target.result))) {
+              invertedIndex.createIndex(JSON.parse(e.target.result), fileName);
+              goodContent.push(fileName);
+              document.getElementById('createError').innerHTML = `(${goodContent}) successfully added`;
+              document.getElementById('createError').style.visibility = 'visible';
+            } else {
+              notValid(fileName);
+              return;
+            }
+            $timeout(() => {
+              $scope.documentWholeText = invertedIndex.documentWholeText;
+              $scope.documentWholeTitle = invertedIndex.documentWholeTitle;
+              $scope.wordSet = invertedIndex.wordSet;
+            }, 1000);
+          } catch (err) {
+            notValid(fileName);
           }
-          $timeout(() => {
-            $scope.documentWholeText = invertedIndex.documentWholeText;
-            $scope.documentWholeTitle = invertedIndex.documentWholeTitle;
-            $scope.wordSet = invertedIndex.wordSet;
-          }, 1000);
         };
         reader.readAsText(event);
         $scope.$apply();
