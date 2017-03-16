@@ -55,7 +55,7 @@ class InvertedIndex {
       count += 1;
     });
     InvertedIndex.transformToSingles(textObj);
-    this.documentWholeText[fileName] = this.tokenize(textObj);
+    this.documentWholeText[fileName] = this.populateIndex(textObj);
     this.documentWholeTitle[fileName] = titleObj;
 
     return this.documentWholeText[fileName];
@@ -77,7 +77,7 @@ class InvertedIndex {
   }
 
   /**
-   * To join words together into array
+   * To join all words together into array
    * @param {Object} textObj - Object with all the words to be tokenized
    * @returns {Object} - All words together in an array
    * @memberOf InvertedIndex
@@ -91,12 +91,12 @@ class InvertedIndex {
   }
 
   /**
-   * To tokenize all words
+   * To populate the index object
    * @param {Object} textObj - Object with all the words to be tokenized
    * @returns {Object} - Words as keys and a value of a array with their repective books
    * @memberOf InvertedIndex
    */
-  tokenize(textObj) {
+  populateIndex(textObj) {
     const wordArray = this.transformToArray(textObj);
     this.wordSet = new Set(wordArray);
     this.wordSet = Array.from(this.wordSet).sort();

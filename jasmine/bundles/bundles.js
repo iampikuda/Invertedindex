@@ -148,7 +148,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
 
     it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.prototype.tokenize).toBe('function');
+      expect(typeof InvertedIndex.prototype.populateIndex).toBe('function');
     });
 
     it('should check that it has a searchIndex method', () => {
@@ -203,9 +203,9 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
   });
 
-  describe('Tokenize Function', () => {
+  describe('Populate Index Function', () => {
     it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.tokenize(textObjWordArrayOne))
+      expect(invertedIndex.populateIndex(textObjWordArrayOne))
         .toEqual(
         {
           a: [1, 3],
@@ -230,7 +230,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         );
     });
     it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.tokenize(textObjWordArrayTwo))
+      expect(invertedIndex.populateIndex(textObjWordArrayTwo))
         .toEqual(
         {
           full: [1],
