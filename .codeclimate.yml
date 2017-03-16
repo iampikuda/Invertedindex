@@ -1,9 +1,15 @@
+---
 engines:
+  csslint:
+    enabled: true
+    checks:
+      gradients:
+        enabled: false
   duplication:
     enabled: true
     config:
       languages:
-      - javascript
+        - javascript
   eslint:
     enabled: true
     channel: "eslint-3"
@@ -12,4 +18,7 @@ engines:
 ratings:
   paths:
   - "/src/public/js/*.js"
-
+exclude_paths:
+  - "/src/public/js/inverted.ctr.js"
+  - "/jasmine"
+  - "/server.js"

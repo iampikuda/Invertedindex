@@ -71,43 +71,11 @@ module.exports={
   }
 }
 },{}],3:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Alice in Wonderland",
-    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
-  },
-
-  {
-    "title": "The Lord of the Rings: The Fellowship of the Ring.",
-    "textis": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
-  },
-  {
-    "title": "Marvel's agents of sheild.",
-    "text": "A rabbit with wizarding powers and an imagination of an usual spoon."
-  }
-]
-},{}],4:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Alice in Wonderland",
-    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
-  },
-
-  {
-    "title": "The Lord of the Rings: The Fellowship of the Ring.",
-    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
-  },
-  {
-    "titl": "Marvel's agents of sheild.",
-    "tex": "A rabbit with wizarding powers and an imagination of an usual spoon."
-  }
-]
-},{}],5:[function(require,module,exports){
 module.exports=[]
-},{}],6:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // bad content
-const badOne = require('./badOne.json');
-const badTwo = require('./badTwo.json');
+const invalidKeysOne = require('./invalidKeysOne.json');
+const invalidKeysTwo = require('./invalidKeysTwo.json');
 // good content
 const goodOne = require('./goodOne.json');
 const goodTwo = require('./goodTwo.json');
@@ -148,7 +116,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
 
     it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.prototype.tokenize).toBe('function');
+      expect(typeof InvertedIndex.prototype.populateIndex).toBe('function');
     });
 
     it('should check that it has a searchIndex method', () => {
@@ -203,9 +171,9 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
   });
 
-  describe('Tokenize Function', () => {
+  describe('Populate Index Function', () => {
     it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.tokenize(textObjWordArrayOne))
+      expect(invertedIndex.populateIndex(textObjWordArrayOne))
         .toEqual(
         {
           a: [1, 3],
@@ -230,7 +198,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         );
     });
     it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.tokenize(textObjWordArrayTwo))
+      expect(invertedIndex.populateIndex(textObjWordArrayTwo))
         .toEqual(
         {
           full: [1],
@@ -353,17 +321,17 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         .toBe(true);
     });
     it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(badOne))
+      expect(InvertedIndex.validateContent(invalidKeysOne))
         .toBe(false);
     });
     it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(badTwo))
+      expect(InvertedIndex.validateContent(invalidKeysTwo))
         .toBe(false);
     });
   });
 });
 
-},{"./allText.json":1,"./allTitles.json":2,"./badOne.json":3,"./badTwo.json":4,"./empty.json":5,"./goodOne.json":7,"./goodThree.json":8,"./goodTwo.json":9,"./textArrayOne.json":10,"./textArrayTwo.json":11,"./textObjOne.json":12,"./textObjTwo.json":13,"./textObjWordArrayOne.json":14,"./textObjWordArrayTwo.json":15}],7:[function(require,module,exports){
+},{"./allText.json":1,"./allTitles.json":2,"./empty.json":3,"./goodOne.json":5,"./goodThree.json":6,"./goodTwo.json":7,"./invalidKeysOne.json":8,"./invalidKeysTwo.json":9,"./textArrayOne.json":10,"./textArrayTwo.json":11,"./textObjOne.json":12,"./textObjTwo.json":13,"./textObjWordArrayOne.json":14,"./textObjWordArrayTwo.json":15}],5:[function(require,module,exports){
 module.exports=[
   {
     "title": "Alice",
@@ -379,7 +347,7 @@ module.exports=[
     "text": "A rabbit with wizarding powers."
   }
 ]
-},{}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports=[
   {
     "title": "Wonderland",
@@ -395,7 +363,7 @@ module.exports=[
     "text": "A rabbit with an usual spoon."
   }
 ]
-},{}],9:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports=[
   {
     "title": "Aliceland",
@@ -412,6 +380,38 @@ module.exports=[
   {
     "title": "agents.",
     "text": "imagination of an usual spoon."
+  }
+]
+},{}],8:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Alice in Wonderland",
+    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+  },
+
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring.",
+    "textis": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+  },
+  {
+    "title": "Marvel's agents of sheild.",
+    "text": "A rabbit with wizarding powers and an imagination of an usual spoon."
+  }
+]
+},{}],9:[function(require,module,exports){
+module.exports=[
+  {
+    "title": "Alice in Wonderland",
+    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+  },
+
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring.",
+    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+  },
+  {
+    "titl": "Marvel's agents of sheild.",
+    "tex": "A rabbit with wizarding powers and an imagination of an usual spoon."
   }
 ]
 },{}],10:[function(require,module,exports){
@@ -452,4 +452,4 @@ module.exports={
     "2":["a","powerful","ring"],
     "3":["a","rabbit","with","an","usual","spoon"]
 }
-},{}]},{},[6])
+},{}]},{},[4])
