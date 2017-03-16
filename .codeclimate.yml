@@ -20,6 +20,5 @@ ratings:
   - "/src/public/js/*.js"
 exclude_paths:
   - "/src/public/js/inverted.ctr.js"
-  - "/jasmine/"
-  - "/jasmine/**/*"
+  - "/jasmine"
   - "/server.js"
