@@ -17,7 +17,7 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "/src/public/js/*.js"
+  - "/src/public/js/**.js"
 exclude_paths:
   - "/src/public/js/inverted.ctr.js"
   - "/jasmine"
