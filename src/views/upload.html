@@ -20,7 +20,6 @@
           <label for="uploadBtn" class="btn">
             <ng-md-icon class="icon" icon="folder" style="fill: #1352A2; cursor:pointer" size="104"></ng-md-icon>
             <span class="toolTipText"> Choose JSON </span>
-            <!--<input id="uploadBtn" type="file"  hidden multiple accept=".json" ng-model="myValue" onchange="angular.element(this).scope().collectFiles(event)" />-->
             <input id="uploadBtn" type="file"  hidden multiple accept=".json" ng-model="myValue" onchange="angular.element(this).scope().getFiles()" />
           </label>
         </li>
@@ -30,14 +29,14 @@
           <div id="createError"> </div>
           <div id="createNoError"> </div>
           
-          <button ng-show="filesPicked" onclick="angular.element(this).scope().readFile()">UPLOAD</button>
+          <button ng-show="filesPicked" ng-click="readFile()">UPLOAD</button>
           
           <div class="btn" ng-show="filesUploaded">  
             <label for="sort"> Book: </label>
             <select id="createIndex" ng-model="index" name="sort">
               <option ng-repeat="(key, value) in documentWholeText" >{{key}}</option>
             </select>
-            <button onclick="angular.element(this).scope().getIndex()">GET INDEX</button>
+            <button ng-click="getIndex()">GET INDEX</button>
           </div>
         </li>
       </ul>
@@ -57,14 +56,14 @@
                 <input id="uploadBtn" type="file"  hidden multiple accept=".json" ng-model="myValue" onchange="angular.element(this).scope().getFiles(event)" />
                 <div id="createError"> </div>
             </label>
-            <button onclick="angular.element(this).scope().readFile()">UPLOAD</button>
+            <button ng-click="readFile()">UPLOAD</button>
         <!---->
         <!--CREATE INDEX-->
             <label for="sort"> Book: </label>
             <select ng-model="index" name="sort">
               <option ng-repeat="(key, value) in documentWholeText">{{key}}</option>
             </select>
-            <button onclick="angular.element(this).scope().getIndex()">GET INDEX</button>
+            <button ng-click="getIndex()">GET INDEX</button>
         <!---->
           </li>
 
@@ -80,7 +79,7 @@
             <datalist id="word">
               <option ng-repeat="word in wordSet" value="{{word}}">
             </datalist>
-            <button onclick="angular.element(this).scope().searchIndex()">Search Index</button>
+            <button ng-click="searchIndex()">Search Index</button>
           </li>
         <!---->
         <div id="searchError" > </div>

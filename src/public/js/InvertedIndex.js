@@ -21,14 +21,15 @@ class InvertedIndex {
   /**
    * To validate the content of JSON files
    * @static
-   * @param {Object} file - Parsed JSON file
+   * @param {Object} jsonFile - Parsed JSON file
    * @returns {Boolean} True or False
    * @memberOf InvertedIndex
    */
-  static validateContent(file) {
+  static validateContent(jsonFile) {
     let tempBool = true;
-    file.forEach((book) => {
-      if (typeof (book.title) === 'undefined' || typeof (book.text) === 'undefined') {
+    jsonFile.forEach((book) => {
+      if (typeof (book.title) === 'undefined'
+      || typeof (book.text) === 'undefined') {
         tempBool = false;
       }
     });
@@ -42,7 +43,8 @@ class InvertedIndex {
    * Indexes JSON file
    * @param {Object} file - JSON file uploaded into app to be indexed
    * @param {String} fileName - Name of JSON file
-   * @returns {Object} - Words as keys and a value of a array with their repective books
+   * @returns {Object} - Words as keys and a value of a array with
+   * their repective books
    * @memberOf InvertedIndex
    */
   createIndex(file, fileName) {
@@ -70,7 +72,8 @@ class InvertedIndex {
    */
   static transformToSingles(textObj) {
     Object.keys(textObj).forEach((words) => {
-      textObj[words] = textObj[words].replace(/'\w+\s/g, ' ').replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase()
+      textObj[words] = textObj[words].replace(/'\w+\s/g, ' ')
+      .replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase()
       .split(' ');
     });
     return textObj;
@@ -93,7 +96,8 @@ class InvertedIndex {
   /**
    * To populate the index object
    * @param {Object} textObj - Object with all the words to be tokenized
-   * @returns {Object} - Words as keys and a value of a array with their repective books
+   * @returns {Object} - Words as keys and a value of a array with their
+   * repective books
    * @memberOf InvertedIndex
    */
   populateIndex(textObj) {
