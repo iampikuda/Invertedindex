@@ -26,13 +26,13 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   static validateContent(file) {
-    let tempBoolean = true;
+    let tempBool = true;
     file.forEach((book) => {
       if (typeof (book.title) === 'undefined' || typeof (book.text) === 'undefined') {
-        tempBoolean = false;
+        tempBool = false;
       }
     });
-    if (tempBoolean) {
+    if (tempBool) {
       return true;
     }
     return false;
