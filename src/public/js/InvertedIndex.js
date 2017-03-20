@@ -26,37 +26,34 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   static validateContent(jsonFile) {
-    let tempBool = true;
+    let isValid = true;
     jsonFile.forEach((book) => {
-      if (typeof (book.title) === 'undefined'
-      || typeof (book.text) === 'undefined') {
-        tempBool = false;
+      if (typeof book.title === 'undefined'
+      || typeof book.text === 'undefined') {
+        isValid = false;
       }
     });
-    if (tempBool) {
-      return true;
-    }
-    return false;
+    return isValid; // use flag instead
   }
 
   /**
    * Indexes JSON file
-   * @param {Object} file - JSON file uploaded into app to be indexed
+   * @param {Object} fileContent - JSON file uploaded into app to be indexed
    * @param {String} fileName - Name of JSON file
    * @returns {Object} - Words as keys and a value of a array with
    * their repective books
    * @memberOf InvertedIndex
    */
-  createIndex(file, fileName) {
+  createIndex(fileContent, fileName) {
     const titleObj = {};
     const textObj = {};
     let count = 1;
-    file.forEach((book) => {
+    fileContent.forEach((book) => {
       titleObj[count] = book.title;
       textObj[count] = book.text;
       count += 1;
     });
-    InvertedIndex.transformToSingles(textObj);
+    InvertedIndex.normalizeText(textObj);
     this.documentWholeText[fileName] = this.populateIndex(textObj);
     this.documentWholeTitle[fileName] = titleObj;
 
@@ -70,7 +67,7 @@ class InvertedIndex {
    * @returns {Object} - Object with all the words separated and in array
    * @memberOf InvertedIndex
    */
-  static transformToSingles(textObj) {
+  static normalizeText(textObj) {
     Object.keys(textObj).forEach((words) => {
       textObj[words] = textObj[words].replace(/'\w+\s/g, ' ')
       .replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase()
@@ -85,7 +82,7 @@ class InvertedIndex {
    * @returns {Object} - All words together in an array
    * @memberOf InvertedIndex
    */
-  transformToArray(textObj) {
+  normalizeAllText(textObj) {
     this.textArray = [];
     Object.keys(textObj).forEach((key) => {
       this.textArray = this.textArray.concat(textObj[key]);
@@ -101,7 +98,7 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   populateIndex(textObj) {
-    const wordArray = this.transformToArray(textObj);
+    const wordArray = this.normalizeAllText(textObj);
     this.wordSet = new Set(wordArray);
     this.wordSet = Array.from(this.wordSet).sort();
 

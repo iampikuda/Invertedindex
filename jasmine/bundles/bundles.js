@@ -103,19 +103,19 @@ describe('INVERTED INDEX CLASS TESTS', () => {
       expect(typeof InvertedIndex.prototype.createIndex).toBe('function');
     });
 
-    it('should check that class has a getIndex method', () => {
+    it('should check that class has a validateContent method', () => {
       expect(typeof InvertedIndex.validateContent).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.prototype.transformToArray).toBe('function');
+    it('should check that it has a normalizeAllText method', () => {
+      expect(typeof InvertedIndex.prototype.normalizeAllText).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.transformToSingles).toBe('function');
+    it('should check that it has a normalizeText method', () => {
+      expect(typeof InvertedIndex.normalizeText).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
+    it('should check that it has a populateIndex method', () => {
       expect(typeof InvertedIndex.prototype.populateIndex).toBe('function');
     });
 
@@ -124,8 +124,8 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
   });
 
-  describe('Searh Index Function', () => {
-    it('should return an object with undefined for words not in book as value', () => {
+  describe('Search Index Function', () => {
+    it('should return undefined for words not in book', () => {
       expect(invertedIndex.searchIndex('enters,alliance, truck', 'goodOne.json', allText))
         .toEqual(
         {
@@ -135,7 +135,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with name of books and undefined for words not in book as value', () => {
+    it('should return undefined for words not in book', () => {
       expect(invertedIndex.searchIndex('alice,full,power,powerfull, magnificent', 'All', allText))
         .toEqual(
         {
@@ -172,7 +172,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Populate Index Function', () => {
-    it('should return an object with all words as keys and the indexes', () => {
+    it('should return an object with all words and their respective indexes', () => {
       expect(invertedIndex.populateIndex(textObjWordArrayOne))
         .toEqual(
         {
@@ -197,7 +197,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words as keys and the indexes', () => {
+    it('should return an object with all words and their respective indexes', () => {
       expect(invertedIndex.populateIndex(textObjWordArrayTwo))
         .toEqual(
         {
@@ -218,15 +218,15 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Transform To Array Function', () => {
-    it('should return an object with all words in array', () => {
-      expect(invertedIndex.transformToArray(textArrayOne))
+    it('should return array with all words', () => {
+      expect(invertedIndex.normalizeAllText(textArrayOne))
         .toEqual(
         ['a', 'rabbit', 'with', 'an', 'usual', 'spoon', 'full',
           'of', 'imagination', 'an', 'unusual', 'alliance', 'of', 'man']
         );
     });
-    it('should return an object with all words in array', () => {
-      expect(invertedIndex.transformToArray(textArrayTwo))
+    it('should return array with all words', () => {
+      expect(invertedIndex.normalizeAllText(textArrayTwo))
         .toEqual(
         ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit', 'full', 'of',
           'imagination', 'imagination', 'of', 'an', 'usual', 'spoon']
@@ -235,8 +235,8 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Transform To Singles Function', () => {
-    it('should return an object with all words in an array', () => {
-      expect(InvertedIndex.transformToSingles(textObjOne))
+    it('should return an object with all words in an array separated by book', () => {
+      expect(InvertedIndex.normalizeText(textObjOne))
         .toEqual(
         {
           1: ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
@@ -245,8 +245,8 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words in an array', () => {
-      expect(InvertedIndex.transformToSingles(textObjTwo))
+    it('should return an object with all words in an array separated by book', () => {
+      expect(InvertedIndex.normalizeText(textObjTwo))
         .toEqual(
         {
           1: ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit'],
@@ -258,7 +258,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Create Function', () => {
-    it('should return an object with all words tokenized', () => {
+    it('should return an object with all words and their respective indexes', () => {
       expect(invertedIndex.createIndex(goodOne, 'goodOne.json'))
         .toEqual(
         {
@@ -280,7 +280,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words tokenized', () => {
+    it('should return an object with all words and their respective indexes', () => {
       expect(invertedIndex.createIndex(goodTwo))
         .toEqual(
         {
