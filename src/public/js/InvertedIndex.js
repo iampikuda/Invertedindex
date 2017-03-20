@@ -19,7 +19,7 @@ class InvertedIndex {
   }
 
   /**
-   * To validate the content of JSON files
+   * To validate the content of the uploaded JSON files
    * @static
    * @param {Object} jsonFile - Parsed JSON file
    * @returns {Boolean} True or False
@@ -53,27 +53,15 @@ class InvertedIndex {
       textObj[count] = book.text;
       count += 1;
     });
-    InvertedIndex.normalizeText(textObj);
-    this.documentWholeText[fileName] = this.populateIndex(textObj);
-    this.documentWholeTitle[fileName] = titleObj;
-
-    return this.documentWholeText[fileName];
-  }
-
-  /**
-   * To separate words and fix into array
-   * @static
-   * @param {Object} textObj - Object with all the words together as string
-   * @returns {Object} - Object with all the words separated and in array
-   * @memberOf InvertedIndex
-   */
-  static normalizeText(textObj) {
     Object.keys(textObj).forEach((words) => {
       textObj[words] = textObj[words].replace(/'\w+\s/g, ' ')
       .replace(/[.,/#!+$%^&@*?;:'{}=\-_`~()]/g, '').trim().toLowerCase()
       .split(' ');
     });
-    return textObj;
+    this.documentWholeText[fileName] = this.populateIndex(textObj);
+    this.documentWholeTitle[fileName] = titleObj;
+
+    return this.documentWholeText[fileName];
   }
 
   /**
@@ -123,24 +111,23 @@ class InvertedIndex {
   /**
    * To search through up
    * @param {String} words - Word(s) to be searched through
-   * @param {String} indexedFile - JSON file of interest
+   * @param {String} indexedFileName - JSON file of interest
    * @param {Object} allText - Object containing all text
    * @returns {Object} - Object containin searched words and their locations
    * @memberOf InvertedIndex
    */
-  searchIndex(words, indexedFile, allText) {
+  searchIndex(words, indexedFileName, allText) {
     this.searchAll = {};
     this.searchText = {};
+    this.get = false;
     words = words.split(/[\s,]+/);
-    if (indexedFile === 'All') {
+    if (indexedFileName === 'All') {
       this.all = true;
-      this.get = false;
       this.search = false;
       Object.keys(allText).forEach((key) => {
         const tempObj = {};
         const tempArray = [];
-        words.forEach((i) => {
-          const word = i;
+        words.forEach((word) => {
           tempObj[word] = allText[key][word];
         });
         tempArray.push(tempObj);
@@ -148,12 +135,10 @@ class InvertedIndex {
       });
       return this.searchAll;
     }
-    this.get = false;
     this.search = true;
     this.all = false;
-    words.forEach((i) => {
-      const word = i;
-      this.searchText[word] = allText[indexedFile][word];
+    words.forEach((word) => {
+      this.searchText[word] = allText[indexedFileName][word];
     });
     return this.searchText;
   }
