@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // bad content
 const invalidKeysOne = require('./invalidKeysOne.json');
 const invalidKeysTwo = require('./invalidKeysTwo.json');
@@ -32,12 +33,12 @@ describe('INVERTED INDEX CLASS TESTS', () => {
       expect(typeof InvertedIndex.validateContent).toBe('function');
     });
 
-    it('should check that it has a transformToArray method', () => {
-      expect(typeof InvertedIndex.prototype.transformToArray).toBe('function');
+    it('should check that it has a normalizeAllText method', () => {
+      expect(typeof InvertedIndex.prototype.normalizeAllText).toBe('function');
     });
 
-    it('should check that it has a transformToSingles method', () => {
-      expect(typeof InvertedIndex.transformToSingles).toBe('function');
+    it('should check that it has a normalizeText method', () => {
+      expect(typeof InvertedIndex.normalizeText).toBe('function');
     });
 
     it('should check that it has a populateIndex method', () => {
@@ -144,14 +145,14 @@ describe('INVERTED INDEX CLASS TESTS', () => {
 
   describe('Transform To Array Function', () => {
     it('should return array with all words', () => {
-      expect(invertedIndex.transformToArray(textArrayOne))
+      expect(invertedIndex.normalizeAllText(textArrayOne))
         .toEqual(
         ['a', 'rabbit', 'with', 'an', 'usual', 'spoon', 'full',
           'of', 'imagination', 'an', 'unusual', 'alliance', 'of', 'man']
         );
     });
     it('should return array with all words', () => {
-      expect(invertedIndex.transformToArray(textArrayTwo))
+      expect(invertedIndex.normalizeAllText(textArrayTwo))
         .toEqual(
         ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit', 'full', 'of',
           'imagination', 'imagination', 'of', 'an', 'usual', 'spoon']
@@ -161,7 +162,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
 
   describe('Transform To Singles Function', () => {
     it('should return an object with all words in an array separated by book', () => {
-      expect(InvertedIndex.transformToSingles(textObjOne))
+      expect(InvertedIndex.normalizeText(textObjOne))
         .toEqual(
         {
           1: ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
@@ -171,7 +172,7 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         );
     });
     it('should return an object with all words in an array separated by book', () => {
-      expect(InvertedIndex.transformToSingles(textObjTwo))
+      expect(InvertedIndex.normalizeText(textObjTwo))
         .toEqual(
         {
           1: ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit'],
