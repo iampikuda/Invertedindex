@@ -167,7 +167,8 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Normalize Text Function', () => {
-    it('should return an array with separated words', () => {
+    it("should separate words, remove special characters and possesive ('s)",
+    () => {
       expect(InvertedIndex.normalizeText(fileTextString))
         .toEqual(
         {
