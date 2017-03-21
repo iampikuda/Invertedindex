@@ -52,49 +52,13 @@ module.exports={
   }
 }
 },{}],2:[function(require,module,exports){
-module.exports={
-  "goodOne.json": {
-    "1": "Alice",
-    "2": "The Fellowship of the Ring.",
-    "3": "Marvel's ."
-  },
-  "goodThree.json": {
-    "1": "Wonderland",
-    "2": "The Lord.",
-    "3": "agents of sheild."
-  },
-  "goodTwo.json": {
-    "1": "Aliceland",
-    "2": "Rings: The Fellowship.",
-    "3": "Alice",
-    "4": "agents."
-  }
-}
-},{}],3:[function(require,module,exports){
-module.exports=[]
-},{}],4:[function(require,module,exports){
-// bad content
-const invalidKeysOne = require('./invalidKeysOne.json');
-const invalidKeysTwo = require('./invalidKeysTwo.json');
-// good content
-const goodOne = require('./goodOne.json');
-const goodTwo = require('./goodTwo.json');
-const goodThree = require('./goodThree.json');
-// empty
-const empty = require('./empty.json');
-// text objects
-const textObjOne = require('./textObjOne.json');
-const textObjTwo = require('./textObjTwo.json');
-// text Arrays
-const textArrayOne = require('./textArrayOne.json');
-const textArrayTwo = require('./textArrayTwo.json');
-// text objects with array values
-const textObjWordArrayOne = require('./textObjWordArrayOne.json');
-const textObjWordArrayTwo = require('./textObjWordArrayTwo.json');
-// search objects
-const allText = require('./allText.json');
-const allTitles = require('./allTitles.json');
+/* eslint-disable no-undef */
 
+const invalidKeys = require('./invalidKeys.json'); // bad content
+const validBook = require('./validBook.json'); // good content
+const fileTextString = require('./fileTextString.json'); // text objects
+const fileTextArray = require('./fileTextArray.json'); // text Arrays
+const allText = require('./allText.json'); // search object
 
 const invertedIndex = new InvertedIndex();
 describe('INVERTED INDEX CLASS TESTS', () => {
@@ -103,19 +67,19 @@ describe('INVERTED INDEX CLASS TESTS', () => {
       expect(typeof InvertedIndex.prototype.createIndex).toBe('function');
     });
 
-    it('should check that class has a getIndex method', () => {
+    it('should check that class has a validateContent method', () => {
       expect(typeof InvertedIndex.validateContent).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.prototype.transformToArray).toBe('function');
+    it('should check that it has a normalizeAllText method', () => {
+      expect(typeof InvertedIndex.prototype.normalizeAllText).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
-      expect(typeof InvertedIndex.transformToSingles).toBe('function');
+    it('should check that it has a normalizeAllText method', () => {
+      expect(typeof InvertedIndex.normalizeText).toBe('function');
     });
 
-    it('should check that it has a searchIndex method', () => {
+    it('should check that it has a populateIndex method', () => {
       expect(typeof InvertedIndex.prototype.populateIndex).toBe('function');
     });
 
@@ -124,9 +88,10 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
   });
 
-  describe('Searh Index Function', () => {
-    it('should return an object with undefined for words not in book as value', () => {
-      expect(invertedIndex.searchIndex('enters,alliance, truck', 'goodOne.json', allText))
+  describe('Search Index Function', () => {
+    it('should return undefined for words not in book', () => {
+      expect(invertedIndex.searchIndex(
+        'enters,alliance, truck', 'goodOne.json', allText))
         .toEqual(
         {
           enters: [1],
@@ -135,8 +100,9 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with name of books and undefined for words not in book as value', () => {
-      expect(invertedIndex.searchIndex('alice,full,power,powerfull, magnificent', 'All', allText))
+    it('should return undefined for words not in each book in file', () => {
+      expect(invertedIndex.searchIndex(
+        'alice,full,power,powerfull, magnificent', 'All', allText))
         .toEqual(
         {
           'goodOne.json': [
@@ -172,8 +138,9 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 
   describe('Populate Index Function', () => {
-    it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.populateIndex(textObjWordArrayOne))
+    it('should return an object with all words and their respective indexes',
+    () => {
+      expect(invertedIndex.populateIndex(fileTextArray))
         .toEqual(
         {
           a: [1, 3],
@@ -197,46 +164,11 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words as keys and the indexes', () => {
-      expect(invertedIndex.populateIndex(textObjWordArrayTwo))
-        .toEqual(
-        {
-          full: [1],
-          of: [1],
-          imagination: [1],
-          a: [2, 3],
-          powerful: [2],
-          ring: [2],
-          rabbit: [3],
-          with: [3],
-          an: [3],
-          usual: [3],
-          spoon: [3]
-        }
-        );
-    });
   });
 
-  describe('Transform To Array Function', () => {
-    it('should return an object with all words in array', () => {
-      expect(invertedIndex.transformToArray(textArrayOne))
-        .toEqual(
-        ['a', 'rabbit', 'with', 'an', 'usual', 'spoon', 'full',
-          'of', 'imagination', 'an', 'unusual', 'alliance', 'of', 'man']
-        );
-    });
-    it('should return an object with all words in array', () => {
-      expect(invertedIndex.transformToArray(textArrayTwo))
-        .toEqual(
-        ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit', 'full', 'of',
-          'imagination', 'imagination', 'of', 'an', 'usual', 'spoon']
-        );
-    });
-  });
-
-  describe('Transform To Singles Function', () => {
-    it('should return an object with all words in an array', () => {
-      expect(InvertedIndex.transformToSingles(textObjOne))
+  describe('Normalize Text Function', () => {
+    it('should return an array with separated words', () => {
+      expect(InvertedIndex.normalizeText(fileTextString))
         .toEqual(
         {
           1: ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
@@ -245,21 +177,23 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words in an array', () => {
-      expect(InvertedIndex.transformToSingles(textObjTwo))
+  });
+
+  describe('Normalize All Text Function', () => {
+    it('should return an array with all words from all books', () => {
+      expect(invertedIndex.normalizeAllText(fileTextArray))
         .toEqual(
-        {
-          1: ['man', 'elf', 'dwarf', 'wizard', 'and', 'hobbit'],
-          2: ['full', 'of', 'imagination'],
-          3: ['imagination', 'of', 'an', 'usual', 'spoon']
-        }
+        ['a', 'rabbit', 'hole', 'man', 'elf', 'dwarf', 'wizard',
+        'and', 'hobbit', 'alice', 'falls', 'and', 'enters', 'a',
+        'world', 'imagination', 'of', 'an', 'usual', 'spoon']
         );
     });
   });
 
   describe('Create Function', () => {
-    it('should return an object with all words tokenized', () => {
-      expect(invertedIndex.createIndex(goodOne, 'goodOne.json'))
+    it('should return an object with all words and their respective indexes',
+    () => {
+      expect(invertedIndex.createIndex(validBook, 'validBook.json'))
         .toEqual(
         {
           alice: [1],
@@ -280,109 +214,34 @@ describe('INVERTED INDEX CLASS TESTS', () => {
         }
         );
     });
-    it('should return an object with all words tokenized', () => {
-      expect(invertedIndex.createIndex(goodTwo))
-        .toEqual(
-        {
-          a: [1, 3],
-          rabbit: [1],
-          hole: [1],
-          and: [2, 3],
-          man: [2],
-          elf: [2],
-          dwarf: [2],
-          wizard: [2],
-          hobbit: [2],
-          alice: [3],
-          falls: [3],
-          enters: [3],
-          world: [3],
-          an: [4],
-          of: [4],
-          imagination: [4],
-          usual: [4],
-          spoon: [4]
-        }
-        );
-    });
   });
 
   describe('Validate Content Function', () => {
     it('should return true when given a valid book as input', () => {
-      expect(InvertedIndex.validateContent(goodOne))
-        .toBe(true);
-    });
-    it('should return true when given a valid book as input', () => {
-      expect(InvertedIndex.validateContent(goodTwo))
-        .toBe(true);
-    });
-    it('should return true when given a valid book as input', () => {
-      expect(InvertedIndex.validateContent(goodThree))
+      expect(InvertedIndex.validateContent(validBook))
         .toBe(true);
     });
     it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(invalidKeysOne))
-        .toBe(false);
-    });
-    it('should return false when given an invalid book as input', () => {
-      expect(InvertedIndex.validateContent(invalidKeysTwo))
+      expect(InvertedIndex.validateContent(invalidKeys))
         .toBe(false);
     });
   });
 });
 
-},{"./allText.json":1,"./allTitles.json":2,"./empty.json":3,"./goodOne.json":5,"./goodThree.json":6,"./goodTwo.json":7,"./invalidKeysOne.json":8,"./invalidKeysTwo.json":9,"./textArrayOne.json":10,"./textArrayTwo.json":11,"./textObjOne.json":12,"./textObjTwo.json":13,"./textObjWordArrayOne.json":14,"./textObjWordArrayTwo.json":15}],5:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Alice",
-    "text": "Alice falls and enters a world ."
-  },
-
-  {
-    "title": "The Fellowship of the Ring.",
-    "text": "An unusual alliance of man"
-  },
-  {
-    "title": "Marvel's .",
-    "text": "A rabbit with wizarding powers."
-  }
-]
-},{}],6:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Wonderland",
-    "text": "full of imagination."
-  },
-
-  {
-    "title": "The Lord.",
-    "text": "a powerful ring."
-  },
-  {
-    "title": "agents of sheild.",
-    "text": "A rabbit with an usual spoon."
-  }
-]
-},{}],7:[function(require,module,exports){
-module.exports=[
-  {
-    "title": "Aliceland",
-    "text": "a rabbit hole."
-  },
-  {
-    "title": "Rings: The Fellowship.",
-    "text": "man, elf, dwarf, wizard and hobbit"
-  },
-  {
-    "title": "Alice",
-    "text": "Alice falls and enters a world ."
-  },
-  {
-    "title": "agents.",
-    "text": "imagination of an usual spoon."
-  }
-]
-},{}],8:[function(require,module,exports){
+},{"./allText.json":1,"./fileTextArray.json":3,"./fileTextString.json":4,"./invalidKeys.json":5,"./validBook.json":6}],3:[function(require,module,exports){
+module.exports={
+    "1":["a","rabbit","hole"],
+    "2":["man","elf","dwarf","wizard","and","hobbit"],
+    "3":["alice","falls","and","enters","a","world"],
+    "4":["imagination","of","an","usual","spoon"]
+}
+},{}],4:[function(require,module,exports){
+module.exports={
+    "1": "A rabbit with an usual spoon.",
+    "2": "full of imagination.",
+    "3": "An unusual alliance of man"
+}
+},{}],5:[function(require,module,exports){
 module.exports=[
   {
     "title": "Alice in Wonderland",
@@ -398,58 +257,20 @@ module.exports=[
     "text": "A rabbit with wizarding powers and an imagination of an usual spoon."
   }
 ]
-},{}],9:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports=[
   {
-    "title": "Alice in Wonderland",
-    "text": "Alice falls into a rabbit hole and enters a world full of imagination."
+    "title": "Alice",
+    "text": "Alice falls and enters a world ."
   },
 
   {
-    "title": "The Lord of the Rings: The Fellowship of the Ring.",
-    "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
+    "title": "The Fellowship of the Ring.",
+    "text": "An unusual alliance of man"
   },
   {
-    "titl": "Marvel's agents of sheild.",
-    "tex": "A rabbit with wizarding powers and an imagination of an usual spoon."
+    "title": "Marvel's .",
+    "text": "A rabbit with wizarding powers."
   }
 ]
-},{}],10:[function(require,module,exports){
-module.exports={ 
-    "1": [ "a", "rabbit", "with", "an", "usual", "spoon" ], 
-    "2": [ "full", "of", "imagination" ], 
-    "3": [ "an", "unusual", "alliance", "of", "man" ] 
-}
-},{}],11:[function(require,module,exports){
-module.exports={ 
-    "1": [ "man", "elf", "dwarf", "wizard", "and", "hobbit" ], 
-    "2": [ "full", "of", "imagination" ], 
-    "3": [ "imagination", "of", "an", "usual", "spoon" ]
-}
-
-},{}],12:[function(require,module,exports){
-module.exports={
-    "1": "A rabbit with an usual spoon.",
-    "2": "full of imagination.",
-    "3": "An unusual alliance of man"
-}
-},{}],13:[function(require,module,exports){
-module.exports={
-    "1": "man, elf, dwarf, wizard and hobbit",
-    "2": "full of imagination.",
-    "3": "imagination of an usual spoon."
-}
-},{}],14:[function(require,module,exports){
-module.exports={
-    "1":["a","rabbit","hole"],
-    "2":["man","elf","dwarf","wizard","and","hobbit"],
-    "3":["alice","falls","and","enters","a","world"],
-    "4":["imagination","of","an","usual","spoon"]
-}
-},{}],15:[function(require,module,exports){
-module.exports={
-    "1":["full","of","imagination"],
-    "2":["a","powerful","ring"],
-    "3":["a","rabbit","with","an","usual","spoon"]
-}
-},{}]},{},[4])
+},{}]},{},[2])
