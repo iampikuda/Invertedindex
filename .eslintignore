@@ -1,8 +1,7 @@
-./node_modules/*
-./coverage/*
+node_modules/*
+coverage/*
 karma.conf.js
-./jasmine/*
+jasmine/*
 gulpfile.js
-./bundles/*
+bundles/*
 inverted-index-test.js
-bundle.js
