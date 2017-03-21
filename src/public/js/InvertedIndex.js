@@ -75,7 +75,7 @@ class InvertedIndex {
     });
     return textObj;
   }
-  
+
   /**
    * To join all words together into array
    * @param {Object} textObj - Object with all the words to be tokenized

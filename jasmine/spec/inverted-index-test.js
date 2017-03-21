@@ -117,9 +117,9 @@ describe('INVERTED INDEX CLASS TESTS', () => {
       expect(InvertedIndex.normalizeText(fileTextString))
         .toEqual(
         {
-          '1': ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
-          '2': ['full', 'of', 'imagination'],
-          '3': ['an', 'unusual', 'alliance', 'of', 'man']
+          1: ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
+          2: ['full', 'of', 'imagination'],
+          3: ['an', 'unusual', 'alliance', 'of', 'man']
         }
         );
     });
