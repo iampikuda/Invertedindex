@@ -52,35 +52,13 @@ module.exports={
   }
 }
 },{}],2:[function(require,module,exports){
-module.exports={
-  "goodOne.json": {
-    "1": "Alice",
-    "2": "The Fellowship of the Ring.",
-    "3": "Marvel's ."
-  },
-  "goodThree.json": {
-    "1": "Wonderland",
-    "2": "The Lord.",
-    "3": "agents of sheild."
-  },
-  "goodTwo.json": {
-    "1": "Aliceland",
-    "2": "Rings: The Fellowship.",
-    "3": "Alice",
-    "4": "agents."
-  }
-}
-},{}],3:[function(require,module,exports){
 /* eslint-disable no-undef */
 
 const invalidKeys = require('./invalidKeys.json'); // bad content
 const validBook = require('./validBook.json'); // good content
 const fileTextString = require('./fileTextString.json'); // text objects
 const fileTextArray = require('./fileTextArray.json'); // text Arrays
-// search objects
-const allText = require('./allText.json');
-const allTitles = require('./allTitles.json');
-
+const allText = require('./allText.json'); // search object
 
 const invertedIndex = new InvertedIndex();
 describe('INVERTED INDEX CLASS TESTS', () => {
@@ -95,6 +73,10 @@ describe('INVERTED INDEX CLASS TESTS', () => {
 
     it('should check that it has a normalizeAllText method', () => {
       expect(typeof InvertedIndex.prototype.normalizeAllText).toBe('function');
+    });
+
+    it('should check that it has a normalizeAllText method', () => {
+      expect(typeof InvertedIndex.normalizeText).toBe('function');
     });
 
     it('should check that it has a populateIndex method', () => {
@@ -184,7 +166,20 @@ describe('INVERTED INDEX CLASS TESTS', () => {
     });
   });
 
-  describe('Transform To Array Function', () => {
+  describe('Normalize Text Function', () => {
+    it('should return an array with separated words', () => {
+      expect(InvertedIndex.normalizeText(fileTextString))
+        .toEqual(
+        {
+          '1': ['a', 'rabbit', 'with', 'an', 'usual', 'spoon'],
+          '2': ['full', 'of', 'imagination'],
+          '3': ['an', 'unusual', 'alliance', 'of', 'man']
+        }
+        );
+    });
+  });
+
+  describe('Normalize All Text Function', () => {
     it('should return an array with all words from all books', () => {
       expect(invertedIndex.normalizeAllText(fileTextArray))
         .toEqual(
@@ -233,20 +228,20 @@ describe('INVERTED INDEX CLASS TESTS', () => {
   });
 });
 
-},{"./allText.json":1,"./allTitles.json":2,"./fileTextArray.json":4,"./fileTextString.json":5,"./invalidKeys.json":6,"./validBook.json":7}],4:[function(require,module,exports){
+},{"./allText.json":1,"./fileTextArray.json":3,"./fileTextString.json":4,"./invalidKeys.json":5,"./validBook.json":6}],3:[function(require,module,exports){
 module.exports={
     "1":["a","rabbit","hole"],
     "2":["man","elf","dwarf","wizard","and","hobbit"],
     "3":["alice","falls","and","enters","a","world"],
     "4":["imagination","of","an","usual","spoon"]
 }
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports={
     "1": "A rabbit with an usual spoon.",
     "2": "full of imagination.",
     "3": "An unusual alliance of man"
 }
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports=[
   {
     "title": "Alice in Wonderland",
@@ -262,7 +257,7 @@ module.exports=[
     "text": "A rabbit with wizarding powers and an imagination of an usual spoon."
   }
 ]
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports=[
   {
     "title": "Alice",
@@ -278,4 +273,4 @@ module.exports=[
     "text": "A rabbit with wizarding powers."
   }
 ]
-},{}]},{},[3])
+},{}]},{},[2])
