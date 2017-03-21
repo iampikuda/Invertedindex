@@ -5,3 +5,4 @@ karma.conf.js
 gulpfile.js
 ./bundles/*
 inverted-index-test.js
+bundle.js
